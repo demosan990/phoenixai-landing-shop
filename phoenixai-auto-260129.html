@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix AI - AI 기반 업무 자동화 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-navy: #0A1628;
+            --color-navy-light: #1a2942;
+            --color-emerald: #10B981;
+            --color-emerald-dark: #059669;
+            --color-gold: #F59E0B;
+            --color-gold-light: #FCD34D;
+            --color-blue: #3B82F6;
+            --color-purple: #8B5CF6;
+            --color-pink: #EC4899;
+            --color-red: #EF4444;
+            --color-cyan: #06B6D4;
+            --color-cream: #FFFBF0;
+            --color-slate: #475569;
+            --font-display: 'Sora', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-navy);
+            color: var(--color-cream);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(245, 158, 11, 0.12) 0%, transparent 50%),
+                var(--color-navy);
+        }
+
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 251, 240, 0.02) 2px, rgba(255, 251, 240, 0.02) 4px);
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            30% { transform: translate(3%, -15%); }
+            50% { transform: translate(12%, 9%); }
+            70% { transform: translate(-9%, 4%); }
+            90% { transform: translate(-1%, -7%); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 251, 240, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-cream);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-emerald);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-emerald-dark));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.4rem;
+            color: rgba(255, 251, 240, 0.7);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .btn-secondary {
+            padding: 0.75rem 2rem;
+            background: transparent;
+            border: 2px solid var(--color-emerald);
+            border-radius: 50px;
+            color: var(--color-emerald);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-emerald);
+            color: var(--color-navy);
+            transform: translateY(-2px);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: rgba(255, 251, 240, 0.6);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Workflow Demo Section */
+        .workflow-demo {
+            padding: 6rem 5%;
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.05), transparent);
+        }
+
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 251, 240, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 251, 240, 0.1);
+            border-radius: 30px;
+            padding: 4rem;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .demo-header h3 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .workflow-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .workflow-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 251, 240, 0.03);
+            border: 2px solid rgba(255, 251, 240, 0.2);
+            border-radius: 15px;
+            color: rgba(255, 251, 240, 0.7);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .workflow-tab:hover {
+            border-color: var(--color-emerald);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-emerald);
+            transform: translateY(-2px);
+        }
+
+        .workflow-tab.active {
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-emerald-dark));
+            border-color: var(--color-emerald);
+            color: white;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+            background: rgba(255, 251, 240, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 251, 240, 0.1);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--color-cream);
+        }
+
+        .progress-percentage {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-emerald);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 251, 240, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-emerald), var(--color-gold));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-status {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: rgba(255, 251, 240, 0.6);
+        }
+
+        .workflow-canvas {
+            background: rgba(10, 22, 40, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            min-height: 500px;
+            position: relative;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .workflow-canvas.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .workflow-nodes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .workflow-node {
+            background: rgba(255, 251, 240, 0.05);
+            border: 2px solid rgba(255, 251, 240, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            flex: 1;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .workflow-node:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-emerald);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        }
+
+        .workflow-node.active {
+            border-color: var(--color-emerald);
+            background: rgba(16, 185, 129, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        .workflow-node.success {
+            border-color: var(--color-emerald);
+            background: rgba(16, 185, 129, 0.15);
+        }
+
+        .workflow-node.error {
+            border-color: var(--color-red);
+            background: rgba(239, 68, 68, 0.15);
+            animation: shake 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .node-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .node-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .node-status {
+            font-size: 0.85rem;
+            color: rgba(255, 251, 240, 0.6);
+        }
+
+        .node-status.processing {
+            color: var(--color-gold);
+        }
+
+        .node-status.completed {
+            color: var(--color-emerald);
+        }
+
+        .node-status.failed {
+            color: var(--color-red);
+        }
+
+        .workflow-connector {
+            width: 40px;
+            height: 2px;
+            background: rgba(16, 185, 129, 0.3);
+            position: relative;
+        }
+
+        .workflow-connector::after {
+            content: '→';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            color: var(--color-emerald);
+            font-size: 1.2rem;
+        }
+
+        .workflow-connector.active {
+            background: var(--color-emerald);
+            animation: flow 1.5s infinite;
+        }
+
+        @keyframes flow {
+            0% {
+                background: linear-gradient(90deg, transparent, var(--color-emerald));
+            }
+            100% {
+                background: linear-gradient(90deg, var(--color-emerald), transparent);
+            }
+        }
+
+        /* Color Themes */
+        .workflow-node.purple-theme { border-color: rgba(139, 92, 246, 0.3); }
+        .workflow-node.purple-theme.active {
+            border-color: var(--color-purple);
+            background: rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+        }
+        .workflow-connector.purple-theme { background: rgba(139, 92, 246, 0.3); }
+        .workflow-connector.purple-theme::after { color: var(--color-purple); }
+        .workflow-connector.purple-theme.active {
+            background: var(--color-purple);
+            animation: flowPurple 1.5s infinite;
+        }
+        @keyframes flowPurple {
+            0% { background: linear-gradient(90deg, transparent, var(--color-purple)); }
+            100% { background: linear-gradient(90deg, var(--color-purple), transparent); }
+        }
+
+        .workflow-node.blue-theme { border-color: rgba(59, 130, 246, 0.3); }
+        .workflow-node.blue-theme.active {
+            border-color: var(--color-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .workflow-connector.blue-theme { background: rgba(59, 130, 246, 0.3); }
+        .workflow-connector.blue-theme::after { color: var(--color-blue); }
+
+        .workflow-node.pink-theme { border-color: rgba(236, 72, 153, 0.3); }
+        .workflow-node.pink-theme.active {
+            border-color: var(--color-pink);
+            background: rgba(236, 72, 153, 0.1);
+        }
+        .workflow-connector.pink-theme { background: rgba(236, 72, 153, 0.3); }
+        .workflow-connector.pink-theme::after { color: var(--color-pink); }
+
+        .demo-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--color-emerald);
+            background: transparent;
+            color: var(--color-emerald);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .demo-btn:hover:not(:disabled) {
+            background: var(--color-emerald);
+            color: var(--color-navy);
+            transform: translateY(-2px);
+        }
+
+        .demo-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .demo-btn.primary {
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-emerald-dark));
+            border: none;
+            color: white;
+        }
+
+        .demo-btn.danger {
+            border-color: var(--color-red);
+            color: var(--color-red);
+        }
+
+        .demo-btn.danger:hover:not(:disabled) {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .demo-log {
+            margin-top: 2rem;
+            background: rgba(10, 22, 40, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            padding: 0.5rem 0;
+            color: rgba(255, 251, 240, 0.7);
+        }
+
+        .log-entry.success {
+            color: var(--color-emerald);
+        }
+
+        .log-entry.error {
+            color: var(--color-red);
+        }
+
+        .log-entry.warning {
+            color: var(--color-gold);
+        }
+
+        .log-entry.processing {
+            color: var(--color-gold);
+        }
+
+        /* Custom Workflow Builder Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-navy-light);
+            border: 1px solid rgba(255, 251, 240, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 251, 240, 0.1);
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-emerald), var(--color-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 251, 240, 0.1);
+            color: var(--color-cream);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--color-red);
+            transform: rotate(90deg);
+        }
+
+        .builder-section {
+            margin-bottom: 2rem;
+        }
+
+        .builder-section h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--color-emerald);
+            margin-bottom: 1rem;
+        }
+
+        .node-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .node-template {
+            background: rgba(255, 251, 240, 0.05);
+            border: 2px dashed rgba(255, 251, 240, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: grab;
+            transition: all 0.3s;
+        }
+
+        .node-template:hover {
+            border-color: var(--color-emerald);
+            background: rgba(16, 185, 129, 0.1);
+            transform: scale(1.05);
+        }
+
+        .node-template:active {
+            cursor: grabbing;
+        }
+
+        .node-template-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .node-template-name {
+            font-size: 0.9rem;
+            color: var(--color-cream);
+        }
+
+        .custom-workflow-canvas {
+            background: rgba(10, 22, 40, 0.5);
+            border: 2px dashed rgba(255, 251, 240, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .custom-workflow-placeholder {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(255, 251, 240, 0.4);
+        }
+
+        .custom-node {
+            display: inline-block;
+            background: rgba(255, 251, 240, 0.05);
+            border: 2px solid var(--color-emerald);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 0.5rem;
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .custom-node-remove {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 25px;
+            height: 25px;
+            background: var(--color-red);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .custom-node-remove:hover {
+            transform: scale(1.2);
+        }
+
+        .builder-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .workflow-nodes {
+                flex-direction: column;
+            }
+
+            .workflow-connector {
+                width: 2px;
+                height: 40px;
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-tabs {
+                flex-direction: column;
+            }
+
+            .demo-controls {
+                flex-direction: column;
+            }
+
+            .demo-btn {
+                width: 100%;
+            }
+        }
+
+        /* Scroll Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animated"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Phoenix AI</div>
+        <ul class="nav-links">
+            <li><a href="#demo">데모</a></li>
+            <li><a href="#features">기능</a></li>
+            <li><a href="#pricing">가격</a></li>
+        </ul>
+        <button class="btn-primary">무료 시작하기</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    모든 업무를<br>
+                    <span class="gradient-text">AI가 자동화</span>합니다
+                </h1>
+                <p>
+                    반복적인 업무는 AI에게 맡기고, 당신은 더 중요한 일에 집중하세요.
+                    n8n 기반 자동화로 업무 효율을 10배 높이고 비용은 70% 절감하세요.
+                </p>
+                <div class="hero-cta">
+                    <button class="btn-primary">14일 무료 체험</button>
+                    <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior: 'smooth'})">
+                        라이브 데모 보기
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">자동화 워크플로우</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">업무 시간 절감</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">기업 고객</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">시스템 안정성</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Demo Section -->
+    <section class="workflow-demo reveal" id="demo">
+        <div class="demo-container">
+            <div class="demo-header">
+                <h3>🚀 실시간 워크플로우 시뮬레이터</h3>
+                <p style="color: rgba(255, 251, 240, 0.7); margin-bottom: 1.5rem;">
+                    원하는 워크플로우를 선택하고 실시간으로 작동을 확인하세요
+                </p>
+                
+                <!-- Workflow Tabs -->
+                <div class="workflow-tabs">
+                    <button class="workflow-tab active" data-workflow="email">
+                        📧 이메일 자동화
+                    </button>
+                    <button class="workflow-tab" data-workflow="influencer">
+                        🎯 인플루언서 아웃리치
+                    </button>
+                    <button class="workflow-tab" data-workflow="meeting">
+                        📝 회의록 자동화
+                    </button>
+                    <button class="workflow-tab" data-workflow="social">
+                        📱 소셜미디어 관리
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-header">
+                    <div class="progress-title">워크플로우 진행률</div>
+                    <div class="progress-percentage">0%</div>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+                <div class="progress-status" id="progress-status">준비 완료</div>
+            </div>
+
+            <!-- Workflow Canvases -->
+            <div id="workflow-container">
+                <!-- Email Workflow -->
+                <div class="workflow-canvas active" data-canvas="email">
+                    <div class="workflow-nodes">
+                        <div class="workflow-node" data-workflow="email" data-node="1">
+                            <div class="node-icon">📧</div>
+                            <div class="node-title">이메일 수신</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector" data-workflow="email" data-connector="1"></div>
+                        <div class="workflow-node" data-workflow="email" data-node="2">
+                            <div class="node-icon">🤖</div>
+                            <div class="node-title">AI 분석</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector" data-workflow="email" data-connector="2"></div>
+                        <div class="workflow-node" data-workflow="email" data-node="3">
+                            <div class="node-icon">💾</div>
+                            <div class="node-title">데이터 저장</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector" data-workflow="email" data-connector="3"></div>
+                        <div class="workflow-node" data-workflow="email" data-node="4">
+                            <div class="node-icon">✉️</div>
+                            <div class="node-title">응답 발송</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Influencer Workflow -->
+                <div class="workflow-canvas" data-canvas="influencer">
+                    <div class="workflow-nodes">
+                        <div class="workflow-node purple-theme" data-workflow="influencer" data-node="1">
+                            <div class="node-icon">🔍</div>
+                            <div class="node-title">Instagram 검색</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector purple-theme" data-workflow="influencer" data-connector="1"></div>
+                        <div class="workflow-node purple-theme" data-workflow="influencer" data-node="2">
+                            <div class="node-icon">📊</div>
+                            <div class="node-title">팔로워 분석</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector purple-theme" data-workflow="influencer" data-connector="2"></div>
+                        <div class="workflow-node purple-theme" data-workflow="influencer" data-node="3">
+                            <div class="node-icon">📧</div>
+                            <div class="node-title">연락처 추출</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector purple-theme" data-workflow="influencer" data-connector="3"></div>
+                        <div class="workflow-node purple-theme" data-workflow="influencer" data-node="4">
+                            <div class="node-icon">💌</div>
+                            <div class="node-title">협업 제안</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meeting Workflow -->
+                <div class="workflow-canvas" data-canvas="meeting">
+                    <div class="workflow-nodes">
+                        <div class="workflow-node blue-theme" data-workflow="meeting" data-node="1">
+                            <div class="node-icon">🎤</div>
+                            <div class="node-title">음성 녹음</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector blue-theme" data-workflow="meeting" data-connector="1"></div>
+                        <div class="workflow-node blue-theme" data-workflow="meeting" data-node="2">
+                            <div class="node-icon">📝</div>
+                            <div class="node-title">텍스트 변환</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector blue-theme" data-workflow="meeting" data-connector="2"></div>
+                        <div class="workflow-node blue-theme" data-workflow="meeting" data-node="3">
+                            <div class="node-icon">🤖</div>
+                            <div class="node-title">AI 요약</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector blue-theme" data-workflow="meeting" data-connector="3"></div>
+                        <div class="workflow-node blue-theme" data-workflow="meeting" data-node="4">
+                            <div class="node-icon">📬</div>
+                            <div class="node-title">Slack 발송</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Workflow -->
+                <div class="workflow-canvas" data-canvas="social">
+                    <div class="workflow-nodes">
+                        <div class="workflow-node pink-theme" data-workflow="social" data-node="1">
+                            <div class="node-icon">✍️</div>
+                            <div class="node-title">콘텐츠 생성</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector pink-theme" data-workflow="social" data-connector="1"></div>
+                        <div class="workflow-node pink-theme" data-workflow="social" data-node="2">
+                            <div class="node-icon">🎨</div>
+                            <div class="node-title">이미지 생성</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector pink-theme" data-workflow="social" data-connector="2"></div>
+                        <div class="workflow-node pink-theme" data-workflow="social" data-node="3">
+                            <div class="node-icon">📅</div>
+                            <div class="node-title">스케줄링</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                        <div class="workflow-connector pink-theme" data-workflow="social" data-connector="3"></div>
+                        <div class="workflow-node pink-theme" data-workflow="social" data-node="4">
+                            <div class="node-icon">🚀</div>
+                            <div class="node-title">멀티 포스팅</div>
+                            <div class="node-status">대기 중</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-log" id="demo-log">
+                <div class="log-entry">워크플로우 준비 완료. "실행" 버튼을 눌러주세요.</div>
+            </div>
+
+            <div class="demo-controls">
+                <button class="demo-btn primary" id="run-workflow">▶ 워크플로우 실행</button>
+                <button class="demo-btn" id="reset-workflow">↻ 초기화</button>
+                <button class="demo-btn" id="toggle-failure">
+                    ⚠️ 실패 시나리오 <span id="failure-toggle-text">(OFF)</span>
+                </button>
+                <button class="demo-btn" id="open-builder">🔧 커스텀 빌더</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Workflow Builder Modal -->
+    <div class="modal-overlay" id="builder-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🔧 커스텀 워크플로우 빌더</h3>
+                <button class="modal-close" id="close-builder">×</button>
+            </div>
+
+            <div class="builder-section">
+                <h4>1. 노드 선택</h4>
+                <p style="color: rgba(255, 251, 240, 0.6); margin-bottom: 1rem;">
+                    노드를 클릭하여 워크플로우에 추가하세요
+                </p>
+                <div class="node-palette">
+                    <div class="node-template" data-node-type="email">
+                        <div class="node-template-icon">📧</div>
+                        <div class="node-template-name">이메일</div>
+                    </div>
+                    <div class="node-template" data-node-type="ai">
+                        <div class="node-template-icon">🤖</div>
+                        <div class="node-template-name">AI 처리</div>
+                    </div>
+                    <div class="node-template" data-node-type="database">
+                        <div class="node-template-icon">💾</div>
+                        <div class="node-template-name">데이터베이스</div>
+                    </div>
+                    <div class="node-template" data-node-type="notification">
+                        <div class="node-template-icon">🔔</div>
+                        <div class="node-template-name">알림</div>
+                    </div>
+                    <div class="node-template" data-node-type="api">
+                        <div class="node-template-icon">🔌</div>
+                        <div class="node-template-name">API 호출</div>
+                    </div>
+                    <div class="node-template" data-node-type="filter">
+                        <div class="node-template-icon">🔍</div>
+                        <div class="node-template-name">필터</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="builder-section">
+                <h4>2. 워크플로우 구성</h4>
+                <div class="custom-workflow-canvas" id="custom-canvas">
+                    <div class="custom-workflow-placeholder">
+                        위에서 노드를 선택하여 워크플로우를 만들어보세요
+                    </div>
+                </div>
+            </div>
+
+            <div class="builder-actions">
+                <button class="demo-btn" id="clear-custom">🗑️ 모두 지우기</button>
+                <button class="demo-btn primary" id="save-custom">💾 저장하고 실행</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main Variables
+        let isRunning = false;
+        let currentWorkflow = 'email';
+        let failureMode = false;
+        let customNodes = [];
+
+        // Workflow Scenarios
+        const workflowScenarios = {
+            email: {
+                name: '이메일 자동화',
+                steps: [
+                    { node: 1, connector: null, message: '이메일 수신 감지...', status: 'processing', delay: 800, canFail: false },
+                    { node: 1, connector: 1, message: '✓ 새 이메일 1건 수신 (발신자: customer@example.com)', status: 'completed', delay: 1200 },
+                    { node: 2, connector: null, message: 'AI 분석 시작...', status: 'processing', delay: 1500, canFail: true },
+                    { node: 2, connector: 2, message: '✓ 내용 분석 완료 (감정: 긍정 98%, 카테고리: 제품 문의)', status: 'completed', delay: 2000 },
+                    { node: 3, connector: null, message: 'Google Drive에 저장 중...', status: 'processing', delay: 2300, canFail: true },
+                    { node: 3, connector: 3, message: '✓ 데이터 저장 완료 (/고객문의/2025-01-05/email_001.json)', status: 'completed', delay: 2800 },
+                    { node: 4, connector: null, message: '자동 응답 생성 중...', status: 'processing', delay: 3200, canFail: false },
+                    { node: 4, connector: null, message: '✓ 워크플로우 완료! (총 소요시간: 3.8초)', status: 'completed', delay: 3800 }
+                ]
+            },
+            influencer: {
+                name: '인플루언서 아웃리치',
+                steps: [
+                    { node: 1, connector: null, message: 'Instagram Graph API 연결 중...', status: 'processing', delay: 800, canFail: true },
+                    { node: 1, connector: 1, message: '✓ 해시태그 #패션뷰티 검색 완료 (250개 계정 발견)', status: 'completed', delay: 1500 },
+                    { node: 2, connector: null, message: '팔로워 수 분석 중...', status: 'processing', delay: 2000, canFail: false },
+                    { node: 2, connector: 2, message: '✓ 조건 충족 인플루언서 47명 선별 (10K~100K 팔로워)', status: 'completed', delay: 2500 },
+                    { node: 3, connector: null, message: 'Business Discovery API로 연락처 추출 중...', status: 'processing', delay: 3000, canFail: true },
+                    { node: 3, connector: 3, message: '✓ 이메일 추출 완료 (32개 유효 연락처)', status: 'completed', delay: 3500 },
+                    { node: 4, connector: null, message: 'AI 기반 맞춤형 협업 제안서 생성 중...', status: 'processing', delay: 4000, canFail: false },
+                    { node: 4, connector: null, message: '✓ 이메일 발송 완료! 10건 발송 (응답률 예상: 15%)', status: 'completed', delay: 5000 },
+                    { node: 4, connector: null, message: '✓ 워크플로우 완료! (총 소요시간: 5.8초)', status: 'completed', delay: 5500 }
+                ]
+            },
+            meeting: {
+                name: '회의록 자동화',
+                steps: [
+                    { node: 1, connector: null, message: '회의 음성 녹음 시작...', status: 'processing', delay: 800, canFail: false },
+                    { node: 1, connector: 1, message: '✓ 45분 회의 녹음 완료 (파일 크기: 128MB)', status: 'completed', delay: 1500 },
+                    { node: 2, connector: null, message: 'Whisper AI로 텍스트 변환 중...', status: 'processing', delay: 2000, canFail: true },
+                    { node: 2, connector: 2, message: '✓ 텍스트 변환 완료 (15,234단어, 정확도 96%)', status: 'completed', delay: 3000 },
+                    { node: 3, connector: null, message: 'GPT-4로 회의 내용 요약 중...', status: 'processing', delay: 3500, canFail: false },
+                    { node: 3, connector: 3, message: '✓ 요약 완료 (핵심 안건 5개, 액션 아이템 12개 추출)', status: 'completed', delay: 4500 },
+                    { node: 4, connector: null, message: 'Slack 채널에 발송 중...', status: 'processing', delay: 5000, canFail: false },
+                    { node: 4, connector: null, message: '✓ #team-updates 채널에 발송 완료', status: 'completed', delay: 5500 },
+                    { node: 4, connector: null, message: '✓ 워크플로우 완료! (총 소요시간: 6.2초)', status: 'completed', delay: 6200 }
+                ]
+            },
+            social: {
+                name: '소셜미디어 관리',
+                steps: [
+                    { node: 1, connector: null, message: 'GPT-4로 SNS 콘텐츠 생성 중...', status: 'processing', delay: 800, canFail: false },
+                    { node: 1, connector: 1, message: '✓ 콘텐츠 3개 생성 완료 (Instagram, Twitter, LinkedIn)', status: 'completed', delay: 2000 },
+                    { node: 2, connector: null, message: 'DALL-E로 이미지 생성 중...', status: 'processing', delay: 2500, canFail: true },
+                    { node: 2, connector: 2, message: '✓ 고품질 이미지 3개 생성 (1024x1024px)', status: 'completed', delay: 4000 },
+                    { node: 3, connector: null, message: '최적 포스팅 시간 분석 중...', status: 'processing', delay: 4500, canFail: false },
+                    { node: 3, connector: 3, message: '✓ 스케줄 설정 완료 (오늘 19:00, 21:00, 23:00)', status: 'completed', delay: 5000 },
+                    { node: 4, connector: null, message: 'Instagram, Twitter, LinkedIn 동시 포스팅...', status: 'processing', delay: 5500, canFail: true },
+                    { node: 4, connector: null, message: '✓ 3개 채널 포스팅 완료 (예상 도달: 15,000명)', status: 'completed', delay: 6500 },
+                    { node: 4, connector: null, message: '✓ 워크플로우 완료! (총 소요시간: 7.1초)', status: 'completed', delay: 7100 }
+                ]
+            }
+        };
+
+        // DOM Elements
+        const runBtn = document.getElementById('run-workflow');
+        const resetBtn = document.getElementById('reset-workflow');
+        const failureBtn = document.getElementById('toggle-failure');
+        const failureText = document.getElementById('failure-toggle-text');
+        const builderBtn = document.getElementById('open-builder');
+        const builderModal = document.getElementById('builder-modal');
+        const closeBuilderBtn = document.getElementById('close-builder');
+        const demoLog = document.getElementById('demo-log');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.querySelector('.progress-percentage');
+        const progressStatus = document.getElementById('progress-status');
+        const workflowTabs = document.querySelectorAll('.workflow-tab');
+
+        // Tab Switching
+        workflowTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                if (isRunning) return;
+
+                const workflow = tab.dataset.workflow;
+                
+                workflowTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                document.querySelectorAll('.workflow-canvas').forEach(canvas => {
+                    canvas.classList.remove('active');
+                });
+                document.querySelector(`[data-canvas="${workflow}"]`).classList.add('active');
+
+                currentWorkflow = workflow;
+                resetWorkflow();
+            });
+        });
+
+        // Toggle Failure Mode
+        failureBtn.addEventListener('click', () => {
+            failureMode = !failureMode;
+            failureText.textContent = failureMode ? '(ON)' : '(OFF)';
+            failureBtn.style.borderColor = failureMode ? 'var(--color-red)' : 'var(--color-emerald)';
+            failureBtn.style.color = failureMode ? 'var(--color-red)' : 'var(--color-emerald)';
+            addLogEntry(`실패 시나리오 ${failureMode ? '활성화' : '비활성화'}`, 'warning');
+        });
+
+        // Progress Update
+        function updateProgress(percentage, status) {
+            progressBar.style.width = `${percentage}%`;
+            progressPercentage.textContent = `${Math.round(percentage)}%`;
+            progressStatus.textContent = status;
+        }
+
+        // Log Entry
+        function addLogEntry(message, className = '') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${className}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            demoLog.appendChild(entry);
+            demoLog.scrollTop = demoLog.scrollHeight;
+        }
+
+        // Update Node
+        function updateNode(workflow, nodeNum, status) {
+            const node = document.querySelector(`[data-workflow="${workflow}"][data-node="${nodeNum}"]`);
+            if (!node) return;
+            
+            const statusEl = node.querySelector('.node-status');
+            
+            node.classList.remove('active', 'success', 'error');
+            
+            if (status === 'processing') {
+                node.classList.add('active');
+                statusEl.textContent = '처리 중...';
+                statusEl.className = 'node-status processing';
+            } else if (status === 'completed') {
+                node.classList.add('success');
+                statusEl.textContent = '완료';
+                statusEl.className = 'node-status completed';
+            } else if (status === 'failed') {
+                node.classList.add('error');
+                statusEl.textContent = '실패';
+                statusEl.className = 'node-status failed';
+            }
+        }
+
+        // Update Connector
+        function updateConnector(workflow, connectorNum, active) {
+            const connector = document.querySelector(`[data-workflow="${workflow}"][data-connector="${connectorNum}"]`);
+            if (connector) {
+                if (active) {
+                    connector.classList.add('active');
+                } else {
+                    connector.classList.remove('active');
+                }
+            }
+        }
+
+        // Run Workflow
+        async function runWorkflow() {
+            if (isRunning) return;
+            isRunning = true;
+            runBtn.disabled = true;
+            runBtn.textContent = '⏳ 실행 중...';
+            resetBtn.disabled = true;
+
+            const scenario = workflowScenarios[currentWorkflow];
+            const steps = scenario.steps;
+            const totalSteps = steps.length;
+            
+            addLogEntry(`${scenario.name} 워크플로우 시작`, 'processing');
+            updateProgress(0, '시작 중...');
+
+            let failed = false;
+
+            for (let i = 0; i < steps.length; i++) {
+                const step = steps[i];
+                await new Promise(resolve => setTimeout(resolve, step.delay));
+                
+                // Simulate failure
+                if (failureMode && step.canFail && Math.random() < 0.3) {
+                    updateNode(currentWorkflow, step.node, 'failed');
+                    addLogEntry(`✗ 오류 발생: ${step.node}번 노드에서 실패 (재시도 권장)`, 'error');
+                    updateProgress((i / totalSteps) * 100, '오류 발생');
+                    failed = true;
+                    break;
+                }
+                
+                if (step.node) {
+                    updateNode(currentWorkflow, step.node, step.status);
+                }
+                
+                if (step.connector) {
+                    updateConnector(currentWorkflow, step.connector, true);
+                }
+                
+                addLogEntry(step.message, step.status);
+                updateProgress(((i + 1) / totalSteps) * 100, step.message);
+            }
+
+            if (failed) {
+                runBtn.textContent = '❌ 실패 - 다시 시도';
+                addLogEntry('워크플로우 실패로 중단됨', 'error');
+            } else {
+                runBtn.textContent = '✓ 완료!';
+                updateProgress(100, '워크플로우 완료');
+            }
+
+            isRunning = false;
+            resetBtn.disabled = false;
+            
+            setTimeout(() => {
+                runBtn.disabled = false;
+                runBtn.textContent = '▶ 워크플로우 실행';
+            }, 2000);
+        }
+
+        // Reset Workflow
+        function resetWorkflow() {
+            for (let i = 1; i <= 4; i++) {
+                const node = document.querySelector(`[data-workflow="${currentWorkflow}"][data-node="${i}"]`);
+                if (node) {
+                    const statusEl = node.querySelector('.node-status');
+                    node.classList.remove('active', 'success', 'error');
+                    statusEl.textContent = '대기 중';
+                    statusEl.className = 'node-status';
+                }
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                updateConnector(currentWorkflow, i, false);
+            }
+
+            demoLog.innerHTML = '<div class="log-entry">워크플로우 준비 완료. "실행" 버튼을 눌러주세요.</div>';
+            updateProgress(0, '준비 완료');
+            
+            runBtn.textContent = '▶ 워크플로우 실행';
+            runBtn.disabled = false;
+        }
+
+        // Custom Workflow Builder
+        const nodeTemplates = document.querySelectorAll('.node-template');
+        const customCanvas = document.getElementById('custom-canvas');
+        const clearCustomBtn = document.getElementById('clear-custom');
+        const saveCustomBtn = document.getElementById('save-custom');
+
+        const nodeIcons = {
+            email: '📧',
+            ai: '🤖',
+            database: '💾',
+            notification: '🔔',
+            api: '🔌',
+            filter: '🔍'
+        };
+
+        const nodeNames = {
+            email: '이메일',
+            ai: 'AI 처리',
+            database: '데이터베이스',
+            notification: '알림',
+            api: 'API 호출',
+            filter: '필터'
+        };
+
+        nodeTemplates.forEach(template => {
+            template.addEventListener('click', () => {
+                const nodeType = template.dataset.nodeType;
+                addCustomNode(nodeType);
+            });
+        });
+
+        function addCustomNode(type) {
+            const placeholder = customCanvas.querySelector('.custom-workflow-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+
+            const nodeId = Date.now();
+            const node = document.createElement('div');
+            node.className = 'custom-node';
+            node.dataset.nodeId = nodeId;
+            node.innerHTML = `
+                <button class="custom-node-remove" onclick="removeCustomNode(${nodeId})">×</button>
+                <div style="font-size: 2rem;">${nodeIcons[type]}</div>
+                <div style="font-size: 0.9rem; margin-top: 0.5rem;">${nodeNames[type]}</div>
+            `;
+
+            customCanvas.appendChild(node);
+            customNodes.push({ id: nodeId, type, name: nodeNames[type], icon: nodeIcons[type] });
+
+            addLogEntry(`커스텀 워크플로우: ${nodeNames[type]} 노드 추가됨`, 'success');
+        }
+
+        function removeCustomNode(nodeId) {
+            const node = document.querySelector(`[data-node-id="${nodeId}"]`);
+            if (node) {
+                node.remove();
+                customNodes = customNodes.filter(n => n.id !== nodeId);
+                
+                if (customNodes.length === 0) {
+                    customCanvas.innerHTML = '<div class="custom-workflow-placeholder">위에서 노드를 선택하여 워크플로우를 만들어보세요</div>';
+                }
+
+                addLogEntry(`커스텀 워크플로우: 노드 제거됨`, 'warning');
+            }
+        }
+        window.removeCustomNode = removeCustomNode;
+
+        clearCustomBtn.addEventListener('click', () => {
+            customCanvas.innerHTML = '<div class="custom-workflow-placeholder">위에서 노드를 선택하여 워크플로우를 만들어보세요</div>';
+            customNodes = [];
+            addLogEntry('커스텀 워크플로우: 모든 노드 제거됨', 'warning');
+        });
+
+        saveCustomBtn.addEventListener('click', () => {
+            if (customNodes.length === 0) {
+                alert('최소 1개 이상의 노드를 추가해주세요!');
+                return;
+            }
+
+            addLogEntry(`커스텀 워크플로우 저장됨 (${customNodes.length}개 노드)`, 'success');
+            alert(`✅ 커스텀 워크플로우가 저장되었습니다!\n\n총 ${customNodes.length}개의 노드로 구성된 워크플로우입니다.\n\n실제 제품에서는 이 워크플로우가 자동으로 실행됩니다.`);
+            builderModal.classList.remove('active');
+        });
+
+        builderBtn.addEventListener('click', () => {
+            builderModal.classList.add('active');
+        });
+
+        closeBuilderBtn.addEventListener('click', () => {
+            builderModal.classList.remove('active');
+        });
+
+        builderModal.addEventListener('click', (e) => {
+            if (e.target === builderModal) {
+                builderModal.classList.remove('active');
+            }
+        });
+
+        // Event Listeners
+        runBtn.addEventListener('click', runWorkflow);
+        resetBtn.addEventListener('click', resetWorkflow);
+
+        // Scroll Reveal
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal();
+
+        // Animated Stats
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const text = stat.textContent;
+                const hasPercent = text.includes('%');
+                const hasPlus = text.includes('+');
+                const target = parseInt(text.replace(/[^0-9]/g, ''));
+                
+                let current = 0;
+                const increment = target / 60;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target.toLocaleString() + (hasPercent ? '%' : '') + (hasPlus ? '+' : '');
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current).toLocaleString() + (hasPercent ? '%' : '') + (hasPlus ? '+' : '');
+                    }
+                }, 30);
+            });
+        }
+
+        setTimeout(animateStats, 500);
+    </script>
+</body>
+</html>

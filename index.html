@@ -1,0 +1,3329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 2025 하반기 피닉스AI Agent 팩토리 오픈</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 상단/하단 CTA 버튼 */
+        .cta-button-top, .cta-button-bottom {
+            position: fixed;
+            z-index: 1000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button-top {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .cta-button-bottom {
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .cta-button-top:hover, .cta-button-bottom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 메인 헤더 */
+        .main-header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+            position: relative;
+        }
+        
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .main-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .main-header .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .main-header .description {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        /* 코스 섹션 */
+        .courses-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        
+        .course-card.challenge::before {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .course-card.hackathon::before {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+        }
+        
+        .course-card.partnership::before {
+            background: linear-gradient(90deg, #fa709a, #fee140);
+        }
+        
+        .course-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .course-pricing {
+            margin-bottom: 20px;
+        }
+        
+        .original-price {
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .sale-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .discount-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .course-schedule {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        .course-content {
+            text-align: left;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .buy-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .course-card.hackathon .buy-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .course-card.partnership .buy-button {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        /* 솔루션 카드 */
+        .solution-overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .solution-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        
+        .solution-card.make::before {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .solution-card.rag::before {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+        }
+        
+        .solution-card.mcp::before {
+            background: linear-gradient(90deg, #fa709a, #fee140);
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .solution-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .solution-desc {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* 솔루션 그리드 */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        /* 프로젝트 섹션 */
+        .projects-section {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projects-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        
+        .projects-section.make::before {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .projects-section.rag::before {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+        }
+        
+        .projects-section.mcp::before {
+            background: linear-gradient(90deg, #fa709a, #fee140);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 프로젝트 아이템 */
+        .project-item {
+            background: #f5f6f7;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .project-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .project-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        /* 가격과 구매버튼 */
+        .price-purchase-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .price-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .buy-project-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .buy-project-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .project-desc {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tech-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* RAG 섹션 스타일 */
+        .rag .section-header {
+            border-bottom-color: #f093fb;
+        }
+        
+        .rag .section-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        
+        .rag .project-item {
+            border-left-color: #f093fb;
+        }
+        
+        .rag .project-number {
+            background: #f093fb;
+        }
+        
+        .rag .price-purchase-box {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        
+        .rag .buy-project-button {
+            color: #f093fb;
+        }
+        
+        .rag .tech-tag {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        /* MCP 섹션 스타일 */
+        .mcp .section-header {
+            border-bottom-color: #fa709a;
+        }
+        
+        .mcp .section-icon {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+        
+        .mcp .project-item {
+            border-left-color: #fa709a;
+        }
+        
+        .mcp .project-number {
+            background: #fa709a;
+        }
+        
+        .mcp .price-purchase-box {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+        
+        .mcp .buy-project-button {
+            color: #fa709a;
+        }
+        
+        .mcp .tech-tag {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        /* 서비스 카테고리 */
+        .service-categories {
+            display: grid;
+            gap: 25px;
+        }
+        
+        /* 비교 섹션 스타일 */
+        .comparison-section {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            margin-bottom: 60px;
+        }
+        
+        .comparison-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c, #fa709a, #fee140);
+        }
+        
+        .comparison-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .comparison-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .comparison-item {
+            background: #f5f6f7;
+            border-radius: 20px;
+            padding: 25px 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .comparison-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #f093fb, #fa709a);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .comparison-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .comparison-item:hover {
+            transform: scale(1.05);
+            background: white;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .comparison-feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #2c3e50;
+        }
+        
+        .comparison-feature-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* 페이지 전환 */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* 신청서 페이지 */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .schedule-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .back-button {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #5a6268;
+        }
+        
+        /* 관리자 페이지 */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .download-button {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .admin-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .logout-button {
+            background: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-button:hover {
+            background: #c82333;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .data-table th {
+            background: #f5f6f7;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* 푸터 */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .admin-login-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        
+        .admin-login-button:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        
+        .company-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fee140;
+            text-align: center;
+        }
+        
+        .company-tagline {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            text-align: center;
+        }
+        
+        .company-details {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .company-details div {
+            margin-bottom: 5px;
+        }
+        
+        .contact-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fee140;
+            text-align: right;
+        }
+        
+        .contact-details {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            text-align: right;
+        }
+        
+        .contact-details div {
+            margin-bottom: 5px;
+        }
+        
+        .footer-links {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+        
+        /* 챗봇 스타일 */
+        .chatbot-button {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            z-index: 1500;
+            transition: all 0.3s;
+            animation: chatbot-pulse 2s infinite;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(79, 172, 254, 0.6);
+        }
+
+        @keyframes chatbot-pulse {
+            0% { box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4); }
+            50% { box-shadow: 0 4px 20px rgba(79, 172, 254, 0.8); }
+            100% { box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4); }
+        }
+
+        .chatbot-popup {
+            position: fixed;
+            bottom: 170px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 1600;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 6px;
+        }
+
+        .message.user .message-content {
+            background: #4facfe;
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .chatbot-input {
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #4facfe;
+        }
+
+        .chatbot-send {
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .chatbot-send:hover {
+            background: #3d8bfe;
+        }
+
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-button {
+            background: #f0f8ff;
+            color: #4facfe;
+            border: 1px solid #4facfe;
+            border-radius: 15px;
+            padding: 8px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-button:hover {
+            background: #4facfe;
+            color: white;
+        }
+
+        /* 페이지 전환 */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+
+        /* 팝업 페이지 공통 스타일 */
+        .popup-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .popup-header {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .popup-content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 관리자 페이지 스타일 */
+        .admin-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+        }
+
+        .nav-btn.logout {
+            background: #e74c3c;
+        }
+
+        .nav-btn.logout:hover {
+            background: #c0392b;
+        }
+
+        .admin-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 20px;
+        }
+
+        /* API 설정 스타일 */
+        .api-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #4facfe;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3d8bfe;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+            white-space: pre-line;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* 관리자 로그인 버튼 */
+        .admin-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .admin-btn {
+            background: #4facfe;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: #3d8bfe;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.chatbot {
+            background: #28a745;
+        }
+
+        .admin-btn.chatbot:hover {
+            background: #218838;
+        }
+
+        /* 테이블 스타일 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .courses-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .solution-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-title, .contact-details {
+                text-align: center;
+            }
+            
+            .cta-button-top, .cta-button-bottom {
+                position: relative;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .chatbot-popup {
+                bottom: 170px;
+                right: 10px;
+                width: calc(100vw - 20px);
+                max-width: 350px;
+            }
+            
+            .chatbot-button {
+                bottom: 90px;
+                right: 15px;
+            }
+
+            .admin-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .admin-btn {
+                width: 200px;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="cta-button-top" onclick="showApplicationForm()">
+        🚀 피닉스AI Agent 팩토리 오픈 OT 참가 신청<br>
+        <small style="font-size: 0.8rem;">8/25(월) & 8/26(화) 오후8시</small>
+    </button>
+    
+    <!-- 메인 랜딩 페이지 -->
+    <div id="main-page" class="page active">
+        <div class="container">
+            <header class="main-header">
+                <h1>🚀 2025 하반기 피닉스AI Agent 팩토리 오픈</h1>
+                <p class="subtitle">[AI내공 10년의 기업 피닉스AI Agent 팩토리 오픈] OT를 진행 합니다.</p>
+                <p class="description">Day1. 2025년 8월 25일 (월) 오후8시 / Day2. 2025년 8월 26일 (화) 오후8시</p>
+            </header>
+            
+            <!-- 슈퍼 얼리버드 특가 Course 제목 -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5rem; font-weight: 700; color: #FFD700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin-bottom: 10px;">
+                    ⚡ Agent 팩토리 오픈 슈퍼 얼리버드 특가 Course
+                </h2>
+            </div>
+            
+            <!-- 코스 섹션 -->
+            <div class="courses-section">
+                <!-- 챌린지 Course -->
+                <div class="course-card challenge">
+                    <h3 class="course-title">🏆 챌린지 Course</h3>
+                    <div class="course-pricing">
+                        <div class="original-price">정가: 1,540,000원</div>
+                        <div class="sale-price">특가: 1,090,000원</div>
+                        <span class="discount-badge">29% 할인</span>
+                    </div>
+                    <div class="course-schedule">
+                        <strong>일정:</strong> 2025년 7월–12월, 매월 마지막 주 수요일 오후 8시
+                    </div>
+                    <div class="course-content">
+                        <strong>내용:</strong><br>
+                        최신 AI 기술, AI챗봇 결합 랜딩페이지 1시간 만에 만들기 + 세일즈 챌린지 진행
+                    </div>
+                    <a href="#" class="buy-button" onclick="buyCourse('challenge')">구매하기</a>
+                </div>
+                
+                <!-- 해커톤 Course -->
+                <div class="course-card hackathon">
+                    <h3 class="course-title">⚡ 해커톤 Course</h3>
+                    <div class="course-pricing">
+                        <div class="original-price">정가: 990,000원</div>
+                        <div class="sale-price">특가: 550,000원</div>
+                        <span class="discount-badge">44% 할인</span>
+                    </div>
+                    <div class="course-schedule">
+                        <strong>일정:</strong> 2025년 7월 마지막 주 금 토 일 오후 3시 - 9시
+                    </div>
+                    <div class="course-content">
+                        <strong>내용:</strong><br>
+                        최신 AI 기술, AI챗봇 결합 랜딩페이지 1시간 만에 만들기 + 세일즈 챌린지 진행
+                    </div>
+                    <a href="#" class="buy-button" onclick="buyCourse('hackathon')">구매하기</a>
+                </div>
+                
+                <!-- 협력사 패키지 -->
+                <div class="course-card partnership">
+                    <h3 class="course-title">🤝 협력사 패키지 (Partner Package)<br>
+                        - 로컬 수익화 사업지원 -</h3>
+                    <div class="course-pricing">
+                        <div class="sale-price" style="font-size: 1.5rem; color: #2c3e50; text-decoration: none;">정가: 12,000,000원</div>
+                        <div style="font-size: 1.1rem; color: #666; margin-top: 10px;">협력사별 개별 계약 체결(협력사 패키지MOU)</div>
+                    </div>
+                    <div class="course-schedule">
+                        <strong>일정:</strong> 2025년 7월–12월
+                    </div>
+                    <div class="course-content">
+                        <strong>내용:</strong><br>
+                        • AI챗봇 결합 랜딩페이지 맞춤형 개발 및 교육<br>
+                        • 개발된 랜딩페이지 운영·관리 및 유지보수 교육<br>
+                        • 지역별 세일즈에 필요한 거래처 DM 목록(기업체, 학교등)제안서·견적서·계약서 샘플 제공 및 작성법 교육
+                    </div>
+                    <a href="#" class="buy-button" onclick="buyCourse('partnership')">구매하기</a>
+                </div>
+            </div>
+            
+            <!-- 개별 구매 Course 제목 -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5rem; font-weight: 700; color: #FFD700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin-bottom: 10px;">
+                    💼 Agent 팩토리 개별 구매 Course
+                </h2>
+            </div>
+            
+            <div class="solution-overview">
+                <div class="solution-card make">
+                    <span class="solution-icon">🚀</span>
+                    <h3 class="solution-title">Make 자동화<br><small style="font-size: 0.8em; color: #666;">개별 구매 Course</small></h3>
+                    <p class="solution-desc">워크플로우 기반 비즈니스 프로세스 자동화</p>
+                </div>
+                
+                <div class="solution-card rag">
+                    <span class="solution-icon">🧠</span>
+                    <h3 class="solution-title">RAG 솔루션<br><small style="font-size: 0.8em; color: #666;">개별 구매 Course</small></h3>
+                    <p class="solution-desc">지능형 검색과 생성으로 정확한 정보 제공</p>
+                </div>
+                
+                <div class="solution-card mcp">
+                    <span class="solution-icon">🤖</span>
+                    <h3 class="solution-title">MCP + AI Agent<br><small style="font-size: 0.8em; color: #666;">개별 구매 Course</small></h3>
+                    <p class="solution-desc">컨텍스트 인식 자율 에이전트 시스템</p>
+                </div>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="projects-section make">
+                    <div class="section-header">
+                        <div class="section-icon">🚀</div>
+                        <h2 class="section-title">Make 자동화</h2>
+                    </div>
+                    
+                    <div class="service-categories">
+                        <div class="service-category">
+                            <h3 class="category-title">🏢 내부 효율화</h3>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">1</span>
+                                    이메일 알림 자동화
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 119,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-email-automation', '119,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Gmail API와 Webhook을 활용한 업무 전달 자동화</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Gmail 연동</span>
+                                    <span class="tech-tag">커스텀 Webhook</span>
+                                    <span class="tech-tag">템플릿 기반</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">2</span>
+                                    문서·파일 관리
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 149,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-document-management', '149,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Google Docs/Drive 연동 자동 생성 및 보관</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Google Drive</span>
+                                    <span class="tech-tag">문서 자동생성</span>
+                                    <span class="tech-tag">PDF 처리</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">3</span>
+                                    협업 툴 연계
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 199,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-collaboration-tools', '199,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Slack, Notion, Tally 실시간 연동 및 알림</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Slack 메시지</span>
+                                    <span class="tech-tag">Notion 업데이트</span>
+                                    <span class="tech-tag">Calendar 일정</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">4</span>
+                                    SNS 통합 관리
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 249,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-sns-management', '249,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Facebook, Instagram, LinkedIn 동시 포스팅</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">멀티채널</span>
+                                    <span class="tech-tag">예약게시</span>
+                                    <span class="tech-tag">동시 포스팅</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">5</span>
+                                    데이터 수집·전처리
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 179,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-data-collection', '179,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">웹 크롤링, API 호출, RSS 피드 자동화</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">HTTP 크롤링</span>
+                                    <span class="tech-tag">Text Parser</span>
+                                    <span class="tech-tag">RSS 수집</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">6</span>
+                                    AI 언어모델 연동
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 299,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-ai-integration', '299,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">ChatGPT, Claude, Perplexity 업무 자동화</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">GPT-4o mini</span>
+                                    <span class="tech-tag">Claude</span>
+                                    <span class="tech-tag">Prompt Engineering</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-category">
+                            <h3 class="category-title">👥 고객 대상 서비스</h3>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">1</span>
+                                    이메일 캠페인 자동화
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 189,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-email-campaign', '189,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">뉴스레터, 프로모션 이메일 스케줄링</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">수신자 관리</span>
+                                    <span class="tech-tag">맞춤형 템플릿</span>
+                                    <span class="tech-tag">발송 모니터링</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">2</span>
+                                    SNS 마케팅 자동 게시
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 239,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-sns-marketing', '239,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">여러 채널 동시 콘텐츠 업로드 및 관리</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">채널별 API</span>
+                                    <span class="tech-tag">해시태그 생성</span>
+                                    <span class="tech-tag">이미지 리사이즈</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">3</span>
+                                    데이터 분석 리포트
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 279,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-data-analysis', '279,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">웹사이트·SNS 데이터 수집 및 RAG 요약</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">웹 크롤링</span>
+                                    <span class="tech-tag">RAG 요약</span>
+                                    <span class="tech-tag">정기 리포트</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">4</span>
+                                    AI 챗봇 상담
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 289,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-ai-chatbot', '289,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">RAG 기반 실시간 웹 검색 및 문서 검색</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">GPT-4o mini</span>
+                                    <span class="tech-tag">RAG 파이프라인</span>
+                                    <span class="tech-tag">FAQ 자동화</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">5</span>
+                                    음성 상담 요약
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 259,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-voice-analysis', '259,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Whisper STT 기반 실시간 상담 분석</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Whisper STT</span>
+                                    <span class="tech-tag">실시간 요약</span>
+                                    <span class="tech-tag">키워드 추출</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">6</span>
+                                    교육 추천 시스템
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 169,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('make-education-recommendation', '169,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">AI 기반 맞춤형 교육 콘텐츠 추천</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Dumpling AI</span>
+                                    <span class="tech-tag">AI 기자</span>
+                                    <span class="tech-tag">추천 알고리즘</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="projects-section rag">
+                    <div class="section-header">
+                        <div class="section-icon">🧠</div>
+                        <h2 class="section-title">RAG 솔루션</h2>
+                    </div>
+                    
+                    <div class="service-categories">
+                        <div class="service-category">
+                            <h3 class="category-title">🏢 내부 효율화</h3>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">1</span>
+                                    사내 지식 검색 챗봇
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 199,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('rag-knowledge-chatbot', '199,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Flowise 기반 캠페인 보고서·제안서 인덱싱</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Flowise</span>
+                                    <span class="tech-tag">벡터 DB</span>
+                                    <span class="tech-tag">문서 인덱싱</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">2</span>
+                                    프리미엄 지식 관리
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 229,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('rag-knowledge-management', '229,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Obsidian + Smart Composer 체계적 관리</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Obsidian</span>
+                                    <span class="tech-tag">Smart Composer</span>
+                                    <span class="tech-tag">키워드 검색</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">3</span>
+                                    Telegram 알림 비서
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 139,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('rag-telegram-assistant', '139,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">일정·마감 기한 푸시 알림 및 문의 처리</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Telegram Bot</span>
+                                    <span class="tech-tag">스케줄 관리</span>
+                                    <span class="tech-tag">푸시 알림</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-category">
+                            <h3 class="category-title">👥 고객 대상 서비스</h3>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">1</span>
+                                    웹사이트 RAG 챗봇
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 289,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('rag-website-chatbot', '289,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Azure AI Foundry 기반 FAQ 검색·응답</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Azure AI Foundry</span>
+                                    <span class="tech-tag">FAQ 검색</span>
+                                    <span class="tech-tag">셀프 관리</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">2</span>
+                                    Notion FAQ 에이전트
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 179,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('rag-notion-agent', '179,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Dify + Notion 연동 즉시 챗봇화</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Dify</span>
+                                    <span class="tech-tag">Notion</span>
+                                    <span class="tech-tag">멀티채널</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">3</span>
+                                    마케팅 성과 대시보드
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 269,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('rag-marketing-dashboard', '269,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">n8n 워크플로우 실시간 KPI 집계</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">n8n</span>
+                                    <span class="tech-tag">KPI 분석</span>
+                                    <span class="tech-tag">실시간 대시보드</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="projects-section mcp">
+                    <div class="section-header">
+                        <div class="section-icon">🤖</div>
+                        <h2 class="section-title">MCP + AI Agent</h2>
+                    </div>
+                    
+                    <div class="service-categories">
+                        <div class="service-category">
+                            <h3 class="category-title">🏢 내부 효율화</h3>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">1</span>
+                                    스크립트 리팩토링 에이전트
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 299,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-code-refactoring', '299,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">레거시 코드 분석·모듈화 자동 변환</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">코드 분석</span>
+                                    <span class="tech-tag">자동 리팩토링</span>
+                                    <span class="tech-tag">클라우드 변환</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">2</span>
+                                    콘텐츠 QA·검증 파이프라인
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 279,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-content-qa', '279,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">벡터 검색 기반 할루시네이션 필터링</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">벡터 검색</span>
+                                    <span class="tech-tag">사실 확인</span>
+                                    <span class="tech-tag">품질 보증</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">3</span>
+                                    제안서·보고서 자동 생성
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 289,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-document-generation', '289,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">Context 기반 최신 데이터 반영 문서 생성</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">템플릿 기반</span>
+                                    <span class="tech-tag">데이터 반영</span>
+                                    <span class="tech-tag">PDF 생성</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">4</span>
+                                    사내 지원·일정 챗봇
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 189,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-support-chatbot', '189,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">MCP Agent 회의 알림 및 문의 티켓화</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Calendar 연동</span>
+                                    <span class="tech-tag">알림 자동화</span>
+                                    <span class="tech-tag">티켓 관리</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-category">
+                            <h3 class="category-title">👥 고객 대상 서비스</h3>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">1</span>
+                                    브랜드 맞춤형 AI 챗봇
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 289,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-brand-chatbot', '289,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">24×7 자동 응답 및 콘텐츠 관리</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">24/7 응답</span>
+                                    <span class="tech-tag">멀티채널</span>
+                                    <span class="tech-tag">브랜드 맞춤</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">2</span>
+                                    AI 마케팅 성과 대시보드
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 299,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-marketing-dashboard', '299,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">실시간 KPI 집계·시각화 인사이트 도출</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">실시간 KPI</span>
+                                    <span class="tech-tag">시각화</span>
+                                    <span class="tech-tag">인사이트 도출</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">3</span>
+                                    콘텐츠 품질 보증
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 219,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-content-quality', '219,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">사전 검수 자동 필터링·수정 제안</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">사전 검수</span>
+                                    <span class="tech-tag">오류 탐지</span>
+                                    <span class="tech-tag">수정 제안</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-item">
+                                <div class="project-name">
+                                    <span class="project-number">4</span>
+                                    온보딩·매뉴얼 자동화
+                                </div>
+                                <div class="price-purchase-box">
+                                    <span class="price-text">💰 가격: 129,000원</span>
+                                    <button class="buy-project-button" onclick="buyProject('mcp-onboarding-automation', '129,000원')">VOD 구매하기</button>
+                                </div>
+                                <div class="project-desc">AI Agent 매뉴얼·튜토리얼 자동 생성</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">매뉴얼 생성</span>
+                                    <span class="tech-tag">교육 자동화</span>
+                                    <span class="tech-tag">지식 이전</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 피닉스AI vs 일반 교육의 차별점 섹션 -->
+            <div class="comparison-section">
+                <h2 class="comparison-title">🚀 피닉스AI vs 일반 교육의 차별점</h2>
+                <p class="comparison-subtitle">11년 노하우로 완성한 실무 중심 비즈니스 자동화 솔루션</p>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🎯</span>
+                        <div class="comparison-feature-title">실무 프로젝트 완성</div>
+                        <div class="comparison-feature-desc">단순 강의가 아닌 3개의 실제 비즈니스 자동화 프로젝트를 직접 구현하여 즉시 활용 가능</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">👨‍🏫</span>
+                        <div class="comparison-feature-title">1:1 맞춤 멘토링</div>
+                        <div class="comparison-feature-desc">주 1회 개인별 맞춤 멘토링으로 내 비즈니스에 최적화된 자동화 솔루션 설계</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🔗</span>
+                        <div class="comparison-feature-title">통합 생태계 구축</div>
+                        <div class="comparison-feature-desc">MCP + RAG + Make 통합으로 완전 자동화 시스템 구축, 단편적 도구 학습 탈피</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">💰</span>
+                        <div class="comparison-feature-title">즉시 ROI 창출</div>
+                        <div class="comparison-feature-desc">교육비 회수는 평균 2-3개월, 연간 업무 효율성 300% 향상으로 확실한 투자 대비 효과</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🏢</span>
+                        <div class="comparison-feature-title">중소기업 특화</div>
+                        <div class="comparison-feature-desc">대기업용 복잡한 솔루션이 아닌 개인사업자/중소기업 맞춤형 실용적 자동화</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🤝</span>
+                        <div class="comparison-feature-title">24/7 커뮤니티</div>
+                        <div class="comparison-feature-desc">구독 기간 내 무제한 질의응답, 동료 학습자와의 지속적인 네트워킹 및 정보 공유</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 피닉스AI 통합 솔루션의 핵심 가치 섹션 -->
+            <div class="comparison-section">
+                <h2 class="comparison-title">🚀 피닉스AI 통합 솔루션의 핵심 가치</h2>
+                <p class="comparison-subtitle">3개의 기본 솔루션의 시너지로 완벽한 AI Agent 자동화 실현</p>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <span class="comparison-icon">⚡</span>
+                        <div class="comparison-feature-title">워크플로우 자동화</div>
+                        <div class="comparison-feature-desc">Make 기반 비즈니스 프로세스 완전 자동화로 업무 효율성 극대화</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🎯</span>
+                        <div class="comparison-feature-title">지능형 정보 검색</div>
+                        <div class="comparison-feature-desc">RAG 기술로 정확한 정보 검색과 실시간 컨텍스트 기반 답변 생성</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🧠</span>
+                        <div class="comparison-feature-title">자율적 AI 에이전트</div>
+                        <div class="comparison-feature-desc">MCP 프로토콜 기반 상황 인식 자율 에이전트로 고도화된 업무 처리</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🛡️</span>
+                        <div class="comparison-feature-title">보안 철저</div>
+                        <div class="comparison-feature-desc">OAuth 2.1, PKCE 인증, Zero Trust 아키텍처로 85% 보안 사고 예방</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🔄</span>
+                        <div class="comparison-feature-title">통합 생태계</div>
+                        <div class="comparison-feature-desc">3개 솔루션의 시너지로 완벽한 디지털 트랜스포메이션 실현</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">📊</span>
+                        <div class="comparison-feature-title">실시간 인사이트</div>
+                        <div class="comparison-feature-desc">AI 기반 데이터 분석과 대시보드로 즉시 비즈니스 인사이트 도출</div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🔍</span>
+                        <div class="comparison-feature-title">품질 보증</div>
+                        <div class="comparison-feature-desc">할루시네이션 필터링과 사실 확인으로 신뢰할 수 있는 AI 서비스</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 신청서 페이지 -->
+    <div id="application-page" class="page">
+        <div class="container">
+            <div class="form-container">
+                <button class="back-button" onclick="showMainPage()">← 메인으로 돌아가기</button>
+                
+                <div class="form-header">
+                    <h2 class="form-title">🚀 2025 하반기 피닉스AI Agent 팩토리 오픈</h2>
+                    <p style="font-size: 1.1rem; color: #666;">참가 신청서</p>
+                    <div class="schedule-box">
+                        <h3 style="margin-bottom: 15px; font-size: 1.3rem;">📅 OT 일정</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 8px;"><strong>Day1. 2025년 8월 25일 (월) 오후 8시</strong></p>
+                        <p style="font-size: 1.1rem; margin-bottom: 15px;"><strong>Day2. 2025년 8월 26일 (화) 오후 8시</strong></p>
+                        <p style="font-size: 0.95rem; opacity: 0.9; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 15px;">AI내공 10년의 기업 피닉스AI Agent 팩토리 오픈 OT</p>
+                    </div>
+                </div>
+                
+                <form id="application-form" onsubmit="submitApplication(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="name">성명 *</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">연락처 *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required placeholder="010-0000-0000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">이메일 *</label>
+                        <input type="email" id="email" name="email" class="form-input" required placeholder="example@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="source">참가 경로 *</label>
+                        <select id="source" name="source" class="form-select" required>
+                            <option value="">선택해주세요</option>
+                            <option value="검색">검색 엔진</option>
+                            <option value="SNS">SNS (Instagram, Facebook, LinkedIn)</option>
+                            <option value="지인추천">지인 추천</option>
+                            <option value="유튜브">유튜브</option>
+                            <option value="블로그">블로그</option>
+                            <option value="광고">온라인 광고</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="automation">AI로 자동화 하고 싶은 서비스 *</label>
+                        <textarea id="automation" name="automation" class="form-textarea" required 
+                                  placeholder="예: 이메일 마케팅 자동화, 고객 문의 응답 시스템, 업무 보고서 자동 생성 등 구체적으로 작성해주세요."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">🚀 피닉스AI Agent 팩토리 오픈 OT 참가 신청하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI 챗봇 관리 페이지 -->
+    <div class="popup-page" id="chatbotAdminPage">
+        <div class="admin-header">
+            <div class="admin-title">🤖 AI 챗봇 관리 시스템</div>
+            <div class="admin-nav">
+                <button class="nav-btn" onclick="closeChatbotAdmin()">🏠 메인으로</button>
+                <button class="nav-btn logout" onclick="closeChatbotAdmin()">로그아웃</button>
+            </div>
+        </div>
+        
+        <div class="admin-content">
+            <!-- AI 모델 API 설정 -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h3>🤖 챗봇 AI 모델 연결하기</h3>
+                </div>
+                
+                <div class="api-form">
+                    <!-- ChatGPT 설정 -->
+                    <div class="form-group">
+                        <label for="chatgptApiKey">ChatGPT API Key</label>
+                        <input type="password" id="chatgptApiKey" placeholder="sk-proj-...">
+                    </div>
+                    <div class="form-group">
+                        <label for="chatgptModel">ChatGPT 모델선택</label>
+                        <select id="chatgptModel" onchange="toggleFinetuningInput('chatgpt')">
+                            <option value="">-- ChatGPT 모델을 선택하세요 --</option>
+                            <option value="gpt-4o">GPT-4o (최신 멀티모달)</option>
+                            <option value="gpt-4o-mini">GPT-4o Mini (경제적)</option>
+                            <option value="finetuning">Finetuning Model (커스텀 모델)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="chatgptFinetuningGroup" style="display: none;">
+                        <label for="chatgptFinetuningModel">Finetuning 모델명 입력</label>
+                        <input type="text" id="chatgptFinetuningModel" placeholder="ft:gpt-4o-mini-2024-07-18:...">
+                    </div>
+
+                    <!-- Gemini 설정 -->
+                    <div class="form-group" style="margin-top: 25px;">
+                        <label for="geminiApiKey">Gemini 모델 API Key</label>
+                        <input type="password" id="geminiApiKey" placeholder="AIza...">
+                    </div>
+                    <div class="form-group">
+                        <label for="geminiModel">Gemini 모델선택</label>
+                        <select id="geminiModel">
+                            <option value="">-- Gemini 모델을 선택하세요 --</option>
+                            <option value="gemini-1.5-flash">Gemini 1.5 Flash (빠른 응답)</option>
+                            <option value="gemini-1.5-pro">Gemini 1.5 Pro (고성능)</option>
+                            <option value="gemini-1.0-pro">Gemini 1.0 Pro (안정성)</option>
+                        </select>
+                    </div>
+
+                    <!-- Claude 설정 -->
+                    <div class="form-group" style="margin-top: 25px;">
+                        <label for="claudeApiKey">Claude 모델 API Key</label>
+                        <input type="password" id="claudeApiKey" placeholder="sk-ant-...">
+                    </div>
+                    <div class="form-group">
+                        <label for="claudeModel">Claude 모델선택</label>
+                        <select id="claudeModel">
+                            <option value="">-- Claude 모델을 선택하세요 --</option>
+                            <option value="claude-3-haiku">Claude 3 Haiku (빠르고 효율적)</option>
+                            <option value="claude-3-sonnet">Claude 3 Sonnet (균형적 성능)</option>
+                            <option value="claude-3-opus">Claude 3 Opus (최고 성능)</option>
+                            <option value="claude-3-5-sonnet">Claude 3.5 Sonnet (최신 모델)</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="saveApiSettings()">💾 설정 저장</button>
+                        <button class="btn btn-success" onclick="testApiConnection()">🔗 연결 테스트</button>
+                        <button class="btn btn-danger" onclick="resetApiSettings()">🔄 설정 초기화</button>
+                    </div>
+                    <div id="apiStatus" class="status-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 관리자 페이지 -->
+    <div class="popup-page" id="admin-page">
+        <div class="admin-header">
+            <div class="admin-title">📊 관리자 대시보드</div>
+            <div class="admin-nav">
+                <button class="nav-btn" onclick="showMainPage()">🏠 메인으로</button>
+                <button class="nav-btn logout" onclick="logout()">로그아웃</button>
+            </div>
+        </div>
+        
+        <div class="admin-content">
+            <div id="stats-section">
+                <p><strong>총 신청자 수:</strong> <span id="total-count">0</span>명</p>
+            </div>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>신청일시</th>
+                        <th>성명</th>
+                        <th>연락처</th>
+                        <th>이메일</th>
+                        <th>참가경로</th>
+                        <th>자동화 서비스</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table-body">
+                    <!-- 데이터가 여기에 동적으로 추가됩니다 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- AI 챗봇 버튼 -->
+    <button class="chatbot-button" onclick="toggleChatbot()">
+        🤖
+    </button>
+
+    <!-- AI 챗봇 팝업 -->
+    <div class="chatbot-popup" id="chatbotPopup">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <span>🤖</span>
+                <span>피닉스AI Agent 상담사</span>
+            </div>
+            <button class="chatbot-close" onclick="closeChatbot()">✕</button>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbotMessages">
+            <!-- 초기 환영 메시지 -->
+            <div class="message bot">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    안녕하세요! 피닉스AI Agent 팩토리 상담사입니다. 😊<br>
+                    Agent 팩토리나 AI 자동화 관련 궁금한 점이 있으시면 언제든 문의해주세요!
+                    <div class="quick-buttons">
+                        <button class="quick-button" onclick="sendQuickMessage('코스 소개해주세요')">코스 안내</button>
+                        <button class="quick-button" onclick="sendQuickMessage('가격 궁금해요')">가격 정보</button>
+                        <button class="quick-button" onclick="sendQuickMessage('어떻게 신청하나요')">신청 방법</button>
+                        <button class="quick-button" onclick="sendQuickMessage('일정 알려주세요')">일정 안내</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-input">
+            <textarea id="chatbotInput" placeholder="메시지를 입력하세요... (Shift+Enter: 전송)" onkeypress="handleChatKeyPress(event)" style="flex: 1; padding: 12px 15px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-size: 14px; resize: none; min-height: 45px; max-height: 120px; font-family: inherit;"></textarea>
+            <button class="chatbot-send" onclick="sendMessage()" style="min-width: 80px; border-radius: 25px; font-size: 14px;">
+                채팅 입력
+            </button>
+        </div>
+    </div>
+
+    <button class="cta-button-bottom" onclick="showApplicationForm()">
+        🎯 피닉스AI Agent 팩토리 오픈 OT 신청하기<br>
+        <small style="font-size: 0.8rem;">8/25(월) & 8/26(화) 오후8시</small>
+    </button>
+    
+    <!-- 푸터 섹션 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <!-- 좌측 관리자 로그인 버튼 삭제 -->
+            </div>
+            
+            <div>
+                <div class="company-name">(주)피닉스에이아이</div>
+                <div class="company-tagline">2015년부터 현재까지 10년의 노하우의 집합체 'Agent 팩토리'</div>
+                <div class="company-details">
+                    <div><strong>대표이사</strong> 신용천</div>
+                    <div><strong>개인정보책임관리자</strong> 신용천</div>
+                    <div><strong>사업자번호</strong> 551-88-00087</div>
+                    <div><strong>통신판매업 신고번호</strong> 제 2022-다산-0926호</div>
+                </div>
+            </div>
+            
+            <div>
+                <div class="contact-title">고객센터</div>
+                <div class="contact-details">
+                    <div><strong>전화</strong> 070-8064-6118</div>
+                    <div><strong>휴대폰</strong> 010-2965-7510</div>
+                    <div><strong>이메일</strong> phoenixai.edu@gmail.com</div>
+                    <div><strong>운영시간</strong></div>
+                    <div>주중 10시~18시</div>
+                    <div>(점심시간 12~13시 / 주말 및 공휴일 제외)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 관리자 로그인 버튼들 -->
+        <div class="admin-buttons">
+            <button class="admin-btn chatbot" onclick="loginChatbotAdmin()">🤖 AI챗봇 관리 로그인</button>
+            <button class="admin-btn" onclick="showAdminPage()">👥 고객 관리 로그인</button>
+        </div>
+        
+        <div class="footer-links">
+            <a href="#" onclick="alert('이용약관 페이지는 준비 중입니다.')">이용약관</a>
+            <a href="#" onclick="alert('개인정보처리방침 페이지는 준비 중입니다.')">개인정보처리방침</a>
+            <a href="#" onclick="alert('취소/환불 정책 페이지는 준비 중입니다.')">취소/환불 정책</a>
+        </div>
+        
+        <div class="copyright">
+            © 2025 (주)피닉스에이아이. All rights reserved.
+        </div>
+    </footer>
+    
+    <script>
+        // 메모리 기반 데이터 저장소
+        let applicationData = [];
+        let isLoggedIn = false;
+        let chatbotOpen = false;
+        let apiSettings = {
+            chatgpt: {
+                apiKey: '',
+                model: '',
+                enabled: false
+            },
+            gemini: {
+                apiKey: '',
+                model: '',
+                enabled: false
+            },
+            claude: {
+                apiKey: '',
+                model: '',
+                enabled: false
+            },
+            activeProvider: ''
+        };
+        
+        // 페이지 전환 함수들
+        function showMainPage() {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('main-page').classList.add('active');
+            document.querySelectorAll('.popup-page').forEach(page => page.style.display = 'none');
+        }
+        
+        function showApplicationForm() {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('application-page').classList.add('active');
+        }
+        
+        function showAdminPage() {
+            if (!isLoggedIn) {
+                const username = prompt('관리자 아이디:');
+                const password = prompt('비밀번호:');
+                
+                if (username === 'phoenix' && password === 'phoenix') {
+                    isLoggedIn = true;
+                } else {
+                    alert('잘못된 로그인 정보입니다.');
+                    return;
+                }
+            }
+            
+            document.getElementById('admin-page').style.display = 'block';
+            updateAdminData();
+        }
+        
+        function logout() {
+            isLoggedIn = false;
+            showMainPage();
+        }
+
+        // AI 챗봇 관리 로그인
+        function loginChatbotAdmin() {
+            const username = prompt("AI 챗봇 관리자 아이디를 입력하세요:");
+            if (username === "phoenix") {
+                const password = prompt("비밀번호를 입력하세요:");
+                if (password === "phoenix") {
+                    openChatbotAdmin();
+                } else {
+                    alert("비밀번호가 틀렸습니다.");
+                }
+            } else if (username !== null) {
+                alert("아이디가 틀렸습니다.");
+            }
+        }
+
+        function openChatbotAdmin() {
+            document.getElementById('chatbotAdminPage').style.display = 'block';
+        }
+
+        function closeChatbotAdmin() {
+            document.getElementById('chatbotAdminPage').style.display = 'none';
+        }
+        
+        // 코스 구매 처리
+        function buyCourse(courseType) {
+            const courseNames = {
+                'challenge': '챌린지 Course',
+                'hackathon': '해커톤 Course',
+                'partnership': '협력사 패키지 (로컬 수익화)'
+            };
+            
+            const courseName = courseNames[courseType] || '코스';
+            alert(`🛒 "${courseName}" 구매\n\n현재 쇼핑몰 연결 준비 중입니다.\n\n💡 OT 참가 신청을 통해 자세한 정보를 확인해보세요!`);
+        }
+        
+        // 신청서 제출 처리
+        function submitApplication(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const application = {
+                timestamp: new Date().toLocaleString('ko-KR'),
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                source: formData.get('source'),
+                automation: formData.get('automation')
+            };
+            
+            applicationData.push(application);
+            
+            alert('🎉 신청이 완료되었습니다!\n빠른 시일 내에 연락드리겠습니다.');
+            event.target.reset();
+            showMainPage();
+        }
+        
+        // 관리자 데이터 업데이트
+        function updateAdminData() {
+            const totalCount = document.getElementById('total-count');
+            const tableBody = document.getElementById('data-table-body');
+            
+            totalCount.textContent = applicationData.length;
+            
+            tableBody.innerHTML = '';
+            applicationData.reverse().forEach(app => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${app.timestamp}</td>
+                    <td>${app.name}</td>
+                    <td>${app.phone}</td>
+                    <td>${app.email}</td>
+                    <td>${app.source}</td>
+                    <td>${app.automation}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // 엑셀 다운로드 함수
+        function downloadExcel() {
+            if (applicationData.length === 0) {
+                alert('다운로드할 데이터가 없습니다.');
+                return;
+            }
+            
+            const headers = ['신청일시', '성명', '연락처', '이메일', '참가경로', 'AI 자동화 서비스'];
+            let csvContent = headers.join(',') + '\n';
+            
+            applicationData.forEach(app => {
+                const row = [
+                    `"${app.timestamp}"`,
+                    `"${app.name}"`,
+                    `"${app.phone}"`,
+                    `"${app.email}"`,
+                    `"${app.source}"`,
+                    `"${app.automation.replace(/"/g, '""')}"`
+                ];
+                csvContent += row.join(',') + '\n';
+            });
+            
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            
+            const now = new Date();
+            const dateStr = now.getFullYear() + 
+                           String(now.getMonth() + 1).padStart(2, '0') + 
+                           String(now.getDate()).padStart(2, '0');
+            
+            link.setAttribute('download', `피닉스AI_신청자명단_${dateStr}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            alert(`📥 신청자 명단이 다운로드되었습니다.\n총 ${applicationData.length}명의 데이터가 포함되어 있습니다.`);
+        }
+
+        // 챗봇 함수들
+        function toggleChatbot() {
+            const popup = document.getElementById('chatbotPopup');
+            if (chatbotOpen) {
+                closeChatbot();
+            } else {
+                popup.style.display = 'flex';
+                chatbotOpen = true;
+                document.getElementById('chatbotInput').focus();
+                
+                // 초기 메시지 업데이트 (API 상태 반영)
+                updateChatbotWelcomeMessage();
+            }
+        }
+
+        function updateChatbotWelcomeMessage() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const firstMessage = messagesContainer.querySelector('.message.bot');
+            
+            if (firstMessage) {
+                const messageContent = firstMessage.querySelector('.message-content');
+                let welcomeText = `안녕하세요! 피닉스AI Agent 팩토리 상담사입니다. 😊<br>
+                Agent 팩토리나 AI 자동화 관련 궁금한 점이 있으시면 언제든 문의해주세요!`;
+                
+                // API 설정 상태 확인
+                const hasAPI = apiSettings.chatgpt.enabled || apiSettings.gemini.enabled || apiSettings.claude.enabled;
+                
+                if (hasAPI) {
+                    welcomeText += `<br><br>🤖 <strong>AI 모델 연결됨!</strong> 더욱 정확한 답변을 제공할 수 있습니다.`;
+                    
+                    if (apiSettings.activeProvider) {
+                        const providerName = apiSettings.activeProvider.toUpperCase();
+                        welcomeText += `<br>현재 활성 모델: ${providerName}`;
+                    }
+                }
+                
+                welcomeText += `<div class="quick-buttons">
+                    <button class="quick-button" onclick="sendQuickMessage('코스 소개해주세요')">코스 안내</button>
+                    <button class="quick-button" onclick="sendQuickMessage('가격 궁금해요')">가격 정보</button>
+                    <button class="quick-button" onclick="sendQuickMessage('어떻게 신청하나요')">신청 방법</button>
+                    <button class="quick-button" onclick="sendQuickMessage('일정 알려주세요')">일정 안내</button>
+                </div>`;
+                
+                messageContent.innerHTML = welcomeText;
+            }
+        }
+
+        function closeChatbot() {
+            document.getElementById('chatbotPopup').style.display = 'none';
+            chatbotOpen = false;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+                input.style.height = '45px';
+                
+                const loadingMessage = addBotMessage('🤔 생각하고 있습니다...');
+                
+                generateAIResponse(message).then(response => {
+                    loadingMessage.remove();
+                    addBotMessage(response);
+                }).catch(error => {
+                    console.error('AI 응답 오류:', error);
+                    loadingMessage.remove();
+                    addBotMessage('❌ 죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                });
+            }
+        }
+
+        function sendQuickMessage(message) {
+            addUserMessage(message);
+            
+            const loadingMessage = addBotMessage('🤔 생각하고 있습니다...');
+            
+            generateAIResponse(message).then(response => {
+                loadingMessage.remove();
+                addBotMessage(response);
+            }).catch(error => {
+                console.error('AI 응답 오류:', error);
+                loadingMessage.remove();
+                addBotMessage('❌ 죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            });
+        }
+
+        function handleChatKeyPress(event) {
+            const textarea = event.target;
+            
+            if (event.key === 'Enter' && event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+                return;
+            }
+            
+            if (event.key === 'Enter') {
+                setTimeout(() => {
+                    autoResizeTextarea(textarea);
+                }, 0);
+            }
+        }
+
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = '45px';
+            const scrollHeight = textarea.scrollHeight;
+            const maxHeight = 120;
+            
+            if (scrollHeight > 45) {
+                textarea.style.height = Math.min(scrollHeight, maxHeight) + 'px';
+            }
+        }
+
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">👤</div>
+                <div class="message-content">${message}</div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addBotMessage(message) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">${message}</div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+            return messageDiv;
+        }
+
+        function scrollToBottom() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function generateAIResponse(userMessage) {
+            console.log('🤖 AI 응답 생성 시작:', userMessage);
+            
+            // API가 설정되어 있으면 AI API 호출
+            if (apiSettings.activeProvider && apiSettings[apiSettings.activeProvider].enabled) {
+                console.log('🔗 API 호출로 답변 생성:', apiSettings.activeProvider);
+                return callAIAPIWithContext(userMessage);
+            }
+            
+            console.log('💡 API 설정 없음 - 기본 FAQ 응답 사용');
+            return Promise.resolve(getDefaultResponse(userMessage));
+        }
+
+        // 컨텍스트가 포함된 AI API 호출
+        async function callAIAPIWithContext(userMessage) {
+            const provider = apiSettings.activeProvider;
+            const settings = apiSettings[provider];
+            
+            try {
+                let response;
+                
+                switch (provider) {
+                    case 'chatgpt':
+                        response = await callChatGPTAPIWithContext(userMessage, settings);
+                        break;
+                    case 'gemini':
+                        response = await callGeminiAPIWithContext(userMessage, settings);
+                        break;
+                    case 'claude':
+                        response = await callClaudeAPIWithContext(userMessage, settings);
+                        break;
+                    default:
+                        return getDefaultResponse(userMessage);
+                }
+                
+                return formatFriendlyResponse(response, provider);
+                
+            } catch (error) {
+                console.error('AI API 호출 오류:', error);
+                return `❌ <strong>일시적인 오류가 발생했습니다</strong><br><br>
+                죄송합니다. AI 서비스 연결에 문제가 있어 잠시 기본 안내로 도움드리겠습니다.<br><br>
+                ${getDefaultResponse(userMessage)}<br><br>
+                <small>💡 오류 내용: ${error.message}</small>`;
+            }
+        }
+
+        // ChatGPT API 호출 (컨텍스트 포함)
+        async function callChatGPTAPIWithContext(message, settings) {
+            const systemPrompt = `당신은 피닉스AI Agent 팩토리의 전문 AI 상담사입니다. 
+            매우 친절하고 전문적으로 답변해주세요.
+
+            === Agent 팩토리 기본 정보 ===
+            • 회사명: (주)피닉스에이아이
+            • 서비스: 피닉스AI Agent 팩토리
+            • 대표이사: 신용천
+            • 설립: 2015년 (AI 내공 10년)
+            • 전화: 070-8064-6118
+            • 휴대폰: 010-2965-7510
+            • 이메일: phoenixai.edu@gmail.com
+            • 운영시간: 주중 10시~18시 (점심시간 12~13시)
+
+            === OT 일정 ===
+            • Day1: 2025년 7월 3일 (목) 오후 8시
+            • Day2: 2025년 7월 4일 (금) 오후 8시
+
+            === 코스 및 가격 정보 ===
+            • 챌린지 Course: 정가 1,540,000원 → 특가 770,000원 (50% 할인)
+              - 일정: 2025년 7월–12월, 매월 마지막 주 수요일 오후 8시
+              - 내용: 최신 AI 기술, AI챗봇 결합 랜딩페이지 1시간 만에 만들기 + 세일즈 챌린지
+
+            • 해커톤 Course: 정가 990,000원 → 특가 330,000원 (66% 할인)
+              - 일정: 2025년 7월 마지막 주 금 토 일 오후 3시-9시
+              - 내용: 최신 AI 기술, AI챗봇 결합 랜딩페이지 1시간 만에 만들기 + 세일즈 챌린지
+
+            • 협력사 패키지: 정가 10,000,000원
+              - 협력사별 개별 계약 체결(협력사 패키지MOU)
+              - 일정: 2025년 7월–12월
+              - 내용: AI챗봇 결합 랜딩페이지 맞춤형 개발 및 교육, 운영·관리 및 유지보수 교육, 지역별 세일즈에 필요한 거래처 DM 목록 제공
+
+            === 기술 영역 ===
+            • Make 자동화: 워크플로우 기반 비즈니스 프로세스 자동화
+            • RAG 솔루션: 지능형 검색과 생성으로 정확한 정보 제공
+            • MCP + AI Agent: 컨텍스트 인식 자율 에이전트 시스템
+
+            답변 가이드라인:
+            1. 매우 친절하고 따뜻한 말투를 사용하세요
+            2. 전문적이면서도 이해하기 쉽게 설명하세요
+            3. 구체적인 정보를 제공하세요
+            4. OT 참가나 상담이 필요한 경우 적극 안내하세요
+            5. 답변을 구조화하여 읽기 쉽게 정리해주세요`;
+
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${settings.apiKey}`
+                },
+                body: JSON.stringify({
+                    model: settings.model,
+                    messages: [
+                        {
+                            role: "system",
+                            content: systemPrompt
+                        },
+                        {
+                            role: "user",
+                            content: message
+                        }
+                    ],
+                    max_tokens: 800,
+                    temperature: 0.7
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        // Gemini API 호출 (컨텍스트 포함)
+        async function callGeminiAPIWithContext(message, settings) {
+            const prompt = `당신은 피닉스AI Agent 팩토리의 전문 AI 상담사입니다. 
+            매우 친절하고 전문적으로 답변해주세요.
+
+            === Agent 팩토리 기본 정보 ===
+            • 회사명: (주)피닉스에이아이
+            • 서비스: 피닉스AI Agent 팩토리
+            • 대표이사: 신용천
+            • 설립: 2015년 (AI 내공 10년)
+            • 전화: 070-8064-6118
+            • 휴대폰: 010-2965-7510
+            • 이메일: phoenixai.edu@gmail.com
+            • 운영시간: 주중 10시~18시 (점심시간 12~13시)
+
+            === OT 일정 ===
+            • Day1: 2025년 7월 3일 (목) 오후 8시
+            • Day2: 2025년 7월 4일 (금) 오후 8시
+
+            === 코스 및 가격 정보 ===
+            • 챌린지 Course: 정가 1,540,000원 → 특가 770,000원 (50% 할인)
+            • 해커톤 Course: 정가 990,000원 → 특가 330,000원 (66% 할인)
+            • 협력사 패키지: 정가 10,000,000원 (개별 계약)
+
+            === 기술 영역 ===
+            • Make 자동화: 워크플로우 기반 비즈니스 프로세스 자동화
+            • RAG 솔루션: 지능형 검색과 생성으로 정확한 정보 제공
+            • MCP + AI Agent: 컨텍스트 인식 자율 에이전트 시스템
+
+            답변 가이드라인:
+            1. 매우 친절하고 따뜻한 말투를 사용하세요
+            2. 전문적이면서도 이해하기 쉽게 설명하세요
+            3. 구체적인 정보를 제공하세요
+            4. OT 참가나 상담이 필요한 경우 적극 안내하세요
+            5. 답변을 구조화하여 읽기 쉽게 정리해주세요
+
+            질문: ${message}`;
+
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${settings.model}:generateContent?key=${settings.apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }],
+                    generationConfig: {
+                        maxOutputTokens: 800,
+                        temperature: 0.7
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
+        }
+
+        // Claude API 호출 (컨텍스트 포함)
+        async function callClaudeAPIWithContext(message, settings) {
+            const prompt = `당신은 피닉스AI Agent 팩토리의 전문 AI 상담사입니다. 
+            매우 친절하고 전문적으로 답변해주세요.
+
+            === Agent 팩토리 기본 정보 ===
+            • 회사명: (주)피닉스에이아이
+            • 서비스: 피닉스AI Agent 팩토리
+            • 대표이사: 신용천
+            • 설립: 2015년 (AI 내공 10년)
+            • 전화: 070-8064-6118
+            • 휴대폰: 010-2965-7510
+            • 이메일: phoenixai.edu@gmail.com
+            • 운영시간: 주중 10시~18시 (점심시간 12~13시)
+
+            === OT 일정 ===
+            • Day1: 2025년 7월 3일 (목) 오후 8시
+            • Day2: 2025년 7월 4일 (금) 오후 8시
+
+            === 코스 및 가격 정보 ===
+            • 챌린지 Course: 정가 1,540,000원 → 특가 770,000원 (50% 할인)
+            • 해커톤 Course: 정가 990,000원 → 특가 330,000원 (66% 할인)
+            • 협력사 패키지: 정가 10,000,000원 (개별 계약)
+
+            === 기술 영역 ===
+            • Make 자동화: 워크플로우 기반 비즈니스 프로세스 자동화
+            • RAG 솔루션: 지능형 검색과 생성으로 정확한 정보 제공
+            • MCP + AI Agent: 컨텍스트 인식 자율 에이전트 시스템
+
+            답변 가이드라인:
+            1. 매우 친절하고 따뜻한 말투를 사용하세요
+            2. 전문적이면서도 이해하기 쉽게 설명하세요
+            3. 구체적인 정보를 제공하세요
+            4. OT 참가나 상담이 필요한 경우 적극 안내하세요
+            5. 답변을 구조화하여 읽기 쉽게 정리해주세요
+
+            질문: ${message}`;
+
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': settings.apiKey,
+                    'anthropic-version': '2023-06-01'
+                },
+                body: JSON.stringify({
+                    model: settings.model,
+                    max_tokens: 800,
+                    messages: [{
+                        role: "user",
+                        content: prompt
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return data.content[0].text;
+        }
+
+        // 친절한 응답 포맷팅
+        function formatFriendlyResponse(response, provider) {
+            let formattedResponse = response.trim();
+            
+            formattedResponse = formattedResponse
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            const providerIcon = {
+                'chatgpt': '🧠',
+                'gemini': '💎', 
+                'claude': '🤖'
+            };
+            
+            const providerName = {
+                'chatgpt': 'ChatGPT',
+                'gemini': 'Gemini',
+                'claude': 'Claude'
+            };
+            
+            return `${providerIcon[provider]} <strong>피닉스AI Agent 팩토리 상담사 (${providerName[provider]})</strong><br><br>
+            ${formattedResponse}<br><br>
+            <small>💡 추가 궁금한 점이 있으시면 언제든 문의해주세요!</small>`;
+        }
+
+        function getDefaultResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            if (message.includes('코스') || message.includes('과정') || message.includes('소개')) {
+                return `🎓 <strong>피닉스AI Agent 팩토리 코스 안내</strong><br><br>
+                
+                <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                    ⚡ <strong>챌린지 Course</strong><br>
+                    • 정가: 1,540,000원 → 특가: 770,000원 (50% 할인)<br>
+                    • 일정: 2025년 7월–12월, 매월 마지막 주 수요일 오후 8시<br><br>
+                    
+                    🔥 <strong>해커톤 Course</strong><br>
+                    • 정가: 990,000원 → 특가: 330,000원 (66% 할인)<br>
+                    • 일정: 2025년 7월 마지막 주 금 토 일 오후 3시-9시<br><br>
+                    
+                    🤝 <strong>협력사 패키지</strong><br>
+                    • 정가: 10,000,000원<br>
+                    • 협력사별 개별 계약 체결(MOU)
+                </div>
+                
+                💡 <strong>모든 코스는 최신 AI 기술과 실무 중심 교육을 제공합니다!</strong>`;
+            }
+            
+            if (message.includes('가격') || message.includes('비용') || message.includes('얼마')) {
+                return `💰 <strong>피닉스AI Agent 팩토리 가격 안내</strong><br><br>
+                
+                <div style="background: #fff8f0; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                    🏆 <strong>슈퍼 얼리버드 특가</strong><br><br>
+                    
+                    ⚡ <strong>챌린지 Course</strong><br>
+                    정가: 1,540,000원 → <span style="color: #e74c3c; font-weight: bold;">특가: 770,000원 (50% 할인)</span><br><br>
+                    
+                    🔥 <strong>해커톤 Course</strong><br>
+                    정가: 990,000원 → <span style="color: #e74c3c; font-weight: bold;">특가: 330,000원 (66% 할인)</span><br><br>
+                    
+                    🤝 <strong>협력사 패키지</strong><br>
+                    정가: 10,000,000원<br>
+                    → 협력사별 개별 계약 체결
+                </div>
+                
+                🎯 <strong>지금이 가장 저렴한 기회입니다!</strong>`;
+            }
+            
+            if (message.includes('신청') || message.includes('등록') || message.includes('참가')) {
+                return `📝 <strong>피닉스AI Agent 팩토리 신청 안내</strong><br><br>
+                
+                <div style="background: #f8fff8; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                    📅 <strong>OT 일정</strong><br>
+                    • Day1: 2025년 7월 3일 (목) 오후 8시<br>
+                    • Day2: 2025년 7월 4일 (금) 오후 8시<br><br>
+                    
+                    📋 <strong>신청 방법</strong><br>
+                    1. 상단 또는 하단의 "OT 참가 신청" 버튼 클릭<br>
+                    2. 신청서 작성 및 제출<br>
+                    3. 담당자 연락 대기<br>
+                    4. OT 참가 및 코스 선택
+                </div>
+                
+                🚀 <strong>지금 바로 신청하세요!</strong>`;
+            }
+            
+            if (message.includes('일정') || message.includes('언제') || message.includes('시간')) {
+                return `🗓️ <strong>피닉스AI Agent 팩토리 일정 안내</strong><br><br>
+                
+                <div style="background: #f0fff0; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                    🎯 <strong>OT 일정</strong><br>
+                    • Day1: 2025년 7월 3일 (목) 오후 8시<br>
+                    • Day2: 2025년 7월 4일 (금) 오후 8시<br><br>
+                    
+                    📚 <strong>실제 코스 일정</strong><br>
+                    • 챌린지 Course: 2025년 7월–12월, 매월 마지막 주 수요일 오후 8시<br>
+                    • 해커톤 Course: 2025년 7월 마지막 주 금 토 일 오후 3시-9시<br>
+                    • 협력사 패키지: 2025년 7월–12월
+                </div>
+                
+                💫 <strong>먼저 OT에 참가하여 자세한 내용을 확인하세요!</strong>`;
+            }
+            
+            return `😊 <strong>안녕하세요! 피닉스AI Agent 팩토리 상담사입니다</strong><br><br>
+            
+            <div style="background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); padding: 20px; border-radius: 12px; margin: 10px 0;">
+                🏭 <strong>피닉스AI Agent 팩토리에 오신 것을 환영합니다!</strong><br><br>
+                
+                💡 <strong>무엇을 도와드릴까요?</strong><br>
+                • 코스 안내 및 상세 정보<br>
+                • 가격 및 할인 혜택<br>
+                • 신청 방법 및 절차<br>
+                • 일정 및 시간 안내<br>
+                • 기타 궁금한 점
+            </div>
+            
+            🤖 <strong>AI 내공 10년의 노하우를 전수받을 특별한 기회!</strong><br>
+            궁금한 점이 있으시면 언제든 편하게 말씀해주세요! ✨`;
+        }
+
+        // API 설정 함수들
+        function saveApiSettings() {
+            const chatgptModel = document.getElementById('chatgptModel').value;
+            const chatgptApiKey = document.getElementById('chatgptApiKey').value.trim();
+            const chatgptFinetuningModel = document.getElementById('chatgptFinetuningModel').value.trim();
+            
+            const geminiModel = document.getElementById('geminiModel').value;
+            const geminiApiKey = document.getElementById('geminiApiKey').value.trim();
+            
+            const claudeModel = document.getElementById('claudeModel').value;
+            const claudeApiKey = document.getElementById('claudeApiKey').value.trim();
+            
+            let finalChatGPTModel = chatgptModel;
+            if (chatgptModel === 'finetuning' && chatgptFinetuningModel) {
+                finalChatGPTModel = chatgptFinetuningModel;
+            }
+            
+            apiSettings.chatgpt.model = finalChatGPTModel;
+            apiSettings.chatgpt.apiKey = chatgptApiKey;
+            apiSettings.chatgpt.enabled = finalChatGPTModel && chatgptApiKey;
+            
+            apiSettings.gemini.model = geminiModel;
+            apiSettings.gemini.apiKey = geminiApiKey;
+            apiSettings.gemini.enabled = geminiModel && geminiApiKey;
+            
+            apiSettings.claude.model = claudeModel;
+            apiSettings.claude.apiKey = claudeApiKey;
+            apiSettings.claude.enabled = claudeModel && claudeApiKey;
+            
+            let activeCount = 0;
+            let lastActive = '';
+            
+            if (apiSettings.chatgpt.enabled) {
+                activeCount++;
+                lastActive = 'ChatGPT';
+                apiSettings.activeProvider = 'chatgpt';
+            }
+            if (apiSettings.gemini.enabled) {
+                activeCount++;
+                lastActive = 'Gemini';
+                if (!apiSettings.activeProvider) apiSettings.activeProvider = 'gemini';
+            }
+            if (apiSettings.claude.enabled) {
+                activeCount++;
+                lastActive = 'Claude';
+                if (!apiSettings.activeProvider) apiSettings.activeProvider = 'claude';
+            }
+            
+            if (activeCount === 0) {
+                showStatus('apiStatus', '❌ 최소 하나의 AI 모델을 설정해주세요.', 'error');
+                return;
+            }
+            
+            let message = `✅ ${activeCount}개의 AI 모델이 설정되었습니다!`;
+            if (activeCount > 1) {
+                message += `\n🎯 기본 사용 모델: ${lastActive}`;
+            }
+            if (chatgptModel === 'finetuning') {
+                message += `\n🔧 Finetuning 모델: ${chatgptFinetuningModel}`;
+            }
+            
+            message += `\n\n🚀 이제 챗봇에서 AI 답변을 받을 수 있습니다!`;
+            message += `\n💡 메인 페이지의 챗봇 버튼을 클릭해서 테스트해보세요.`;
+            
+            showStatus('apiStatus', message, 'success');
+            
+            // 챗봇이 열려있다면 환영 메시지 업데이트
+            if (chatbotOpen) {
+                updateChatbotWelcomeMessage();
+            }
+        }
+
+        function testApiConnection() {
+            if (!apiSettings.chatgpt.enabled && !apiSettings.gemini.enabled && !apiSettings.claude.enabled) {
+                showStatus('apiStatus', '❌ 먼저 API 설정을 저장해주세요.', 'error');
+                return;
+            }
+            
+            showStatus('apiStatus', '🔄 API 연결을 테스트하고 있습니다...', 'success');
+            
+            // 실제 API 호출 테스트
+            testAllAPIs().then(results => {
+                const message = results.join('\n') + '\n🎉 모든 설정이 완료되었습니다!';
+                showStatus('apiStatus', message, 'success');
+            }).catch(error => {
+                showStatus('apiStatus', `❌ API 테스트 실패: ${error.message}`, 'error');
+            });
+        }
+
+        // 모든 활성화된 API 테스트
+        async function testAllAPIs() {
+            const testResults = [];
+            const testMessage = "안녕하세요. API 연결 테스트입니다.";
+            
+            if (apiSettings.chatgpt.enabled) {
+                try {
+                    await callChatGPTAPIWithContext(testMessage, apiSettings.chatgpt);
+                    testResults.push('✅ ChatGPT API 연결 성공');
+                } catch (error) {
+                    testResults.push(`❌ ChatGPT API 오류: ${error.message}`);
+                }
+            }
+            
+            if (apiSettings.gemini.enabled) {
+                try {
+                    await callGeminiAPIWithContext(testMessage, apiSettings.gemini);
+                    testResults.push('✅ Gemini API 연결 성공');
+                } catch (error) {
+                    testResults.push(`❌ Gemini API 오류: ${error.message}`);
+                }
+            }
+            
+            if (apiSettings.claude.enabled) {
+                try {
+                    await callClaudeAPIWithContext(testMessage, apiSettings.claude);
+                    testResults.push('✅ Claude API 연결 성공');
+                } catch (error) {
+                    testResults.push(`❌ Claude API 오류: ${error.message}`);
+                }
+            }
+            
+            return testResults;
+        }
+
+        function resetApiSettings() {
+            if (confirm('모든 API 설정을 초기화하시겠습니까?\n저장된 API 키와 모델 선택이 모두 삭제됩니다.')) {
+                document.getElementById('chatgptModel').value = '';
+                document.getElementById('chatgptApiKey').value = '';
+                document.getElementById('chatgptFinetuningModel').value = '';
+                document.getElementById('chatgptFinetuningGroup').style.display = 'none';
+                document.getElementById('geminiModel').value = '';
+                document.getElementById('geminiApiKey').value = '';
+                document.getElementById('claudeModel').value = '';
+                document.getElementById('claudeApiKey').value = '';
+                
+                apiSettings = {
+                    chatgpt: { apiKey: '', model: '', enabled: false },
+                    gemini: { apiKey: '', model: '', enabled: false },
+                    claude: { apiKey: '', model: '', enabled: false },
+                    activeProvider: ''
+                };
+                
+                showStatus('apiStatus', '🔄 모든 API 설정이 초기화되었습니다.', 'success');
+                
+                // 챗봇이 열려있다면 환영 메시지 업데이트
+                if (chatbotOpen) {
+                    updateChatbotWelcomeMessage();
+                }
+            }
+        }
+
+        function toggleFinetuningInput(provider) {
+            const selectElement = document.getElementById(`${provider}Model`);
+            const finetuningGroup = document.getElementById(`${provider}FinetuningGroup`);
+            
+            if (selectElement.value === 'finetuning') {
+                finetuningGroup.style.display = 'block';
+            } else {
+                finetuningGroup.style.display = 'none';
+            }
+        }
+
+        function showStatus(elementId, message, type) {
+            const statusElement = document.getElementById(elementId);
+            statusElement.textContent = message;
+            statusElement.className = `status-message status-${type}`;
+            statusElement.style.display = 'block';
+            
+            const displayTime = type === 'success' ? 5000 : 3000;
+            
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, displayTime);
+        }
+        
+        function buyProject(projectId, price) {
+            const projectNames = {
+                'make-email-automation': '이메일 알림 자동화',
+                'make-document-management': '문서·파일 관리',
+                'make-collaboration-tools': '협업 툴 연계',
+                'make-sns-management': 'SNS 통합 관리',
+                'make-data-collection': '데이터 수집·전처리',
+                'make-ai-integration': 'AI 언어모델 연동',
+                'make-email-campaign': '이메일 캠페인 자동화',
+                'make-sns-marketing': 'SNS 마케팅 자동 게시',
+                'make-data-analysis': '데이터 분석 리포트',
+                'make-ai-chatbot': 'AI 챗봇 상담',
+                'make-voice-analysis': '음성 상담 요약',
+                'make-education-recommendation': '교육 추천 시스템',
+                'rag-knowledge-chatbot': '사내 지식 검색 챗봇',
+                'rag-knowledge-management': '프리미엄 지식 관리',
+                'rag-telegram-assistant': 'Telegram 알림 비서',
+                'rag-website-chatbot': '웹사이트 RAG 챗봇',
+                'rag-notion-agent': 'Notion FAQ 에이전트',
+                'rag-marketing-dashboard': '마케팅 성과 대시보드',
+                'mcp-code-refactoring': '스크립트 리팩토링 에이전트',
+                'mcp-content-qa': '콘텐츠 QA·검증 파이프라인',
+                'mcp-document-generation': '제안서·보고서 자동 생성',
+                'mcp-support-chatbot': '사내 지원·일정 챗봇',
+                'mcp-brand-chatbot': '브랜드 맞춤형 AI 챗봇',
+                'mcp-marketing-dashboard': 'AI 마케팅 성과 대시보드',
+                'mcp-content-quality': '콘텐츠 품질 보증',
+                'mcp-onboarding-automation': '온보딩·매뉴얼 자동화'
+            };
+            
+            const projectName = projectNames[projectId] || '프로젝트';
+            
+            alert(`🛒 "${projectName}" VOD 개별 구매\n💰 가격: ${price}\n\n현재 쇼핑몰 연결 준비 중입니다.\n\n💡 피닉스AI Agent 팩토리 오픈 OT에 참가하여\n전체 프로젝트를 특가로 이용해보세요!`);
+        }
+        
+        // 관리자 로그인 단축키 (Ctrl + Alt + A)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'a') {
+                e.preventDefault();
+                showAdminPage();
+            }
+        });
+        
+        // 초기 데모 데이터 추가
+        applicationData.push({
+            timestamp: '2025-06-10 14:30:25',
+            name: '김철수',
+            phone: '010-1234-5678',
+            email: 'kim@example.com',
+            source: 'SNS',
+            automation: '고객 문의 응답 자동화 및 이메일 마케팅 시스템 구축'
+        });
+        
+        applicationData.push({
+            timestamp: '2025-06-10 15:45:12',
+            name: '이영희',
+            phone: '010-9876-5432',
+            email: 'lee@example.com',
+            source: '지인추천',
+            automation: 'SNS 콘텐츠 자동 게시 및 성과 분석 대시보드'
+        });
+
+        // 텍스트 영역 입력 이벤트 리스너 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chatbotInput');
+            if (chatInput) {
+                chatInput.addEventListener('input', function() {
+                    autoResizeTextarea(this);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

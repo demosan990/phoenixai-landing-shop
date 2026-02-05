@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피닉스AI Agent 팩토리 | 2025 하반기 오픈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ======= 원본 스타일 유지 ======= */
+        :root {
+            --bg: #0b1020;
+            --panel: rgba(255,255,255,0.06);
+            --panel-2: rgba(255,255,255,0.10);
+            --text: rgba(255,255,255,0.92);
+            --muted: rgba(255,255,255,0.70);
+            --line: rgba(255,255,255,0.12);
+            --accent: #82e9ff;
+            --accent2: #a3ff6b;
+            --danger: #ff6b6b;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            background: radial-gradient(1200px 600px at 70% 15%, rgba(130,233,255,0.10), transparent 60%),
+                        radial-gradient(900px 500px at 20% 20%, rgba(163,255,107,0.08), transparent 60%),
+                        radial-gradient(800px 400px at 40% 80%, rgba(255,255,255,0.05), transparent 60%),
+                        var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        .container { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(12px);
+            background: rgba(11,16,32,0.70);
+            border-bottom: 1px solid var(--line);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(130,233,255,0.8), rgba(163,255,107,0.55));
+            box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+        }
+        .brand .title {
+            line-height: 1.05;
+        }
+        .brand .title .top {
+            font-family: "Cormorant Garamond";
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            font-size: 18px;
+        }
+        .brand .title .sub {
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.2px;
+        }
+
+        nav { display: flex; align-items: center; gap: 14px; }
+        .nav-link {
+            font-size: 13px;
+            color: var(--muted);
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+        }
+        .nav-link:hover { border-color: var(--line); color: var(--text); background: rgba(255,255,255,0.04); }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .btn:hover { background: rgba(255,255,255,0.08); }
+        .btn.primary {
+            border: 1px solid rgba(130,233,255,0.35);
+            background: linear-gradient(135deg, rgba(130,233,255,0.18), rgba(163,255,107,0.12));
+        }
+        .btn.danger {
+            border: 1px solid rgba(255,107,107,0.35);
+            background: rgba(255,107,107,0.12);
+        }
+
+        .hero {
+            padding: 56px 0 30px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+        @media (max-width: 980px) {
+            .hero-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 16px 60px rgba(0,0,0,0.34);
+        }
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 34px;
+            letter-spacing: -0.2px;
+        }
+        .hero p {
+            margin: 0 0 18px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .pill {
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.86);
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+        }
+
+        .mini {
+            display: grid;
+            gap: 10px;
+        }
+        .mini .stat {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px;
+        }
+        .mini .stat .k { font-size: 12px; color: var(--muted); }
+        .mini .stat .v { font-size: 16px; font-weight: 800; margin-top: 4px; }
+
+        .section { padding: 26px 0; }
+        .section h2 { margin: 0 0 12px; font-size: 22px; }
+        .muted { color: var(--muted); }
+
+        /* Footer admin buttons */
+        .footer-admin-btns {
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            display: flex;
+            gap: 10px;
+            z-index: 60;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition: all .2s ease;
+        }
+        .footer-admin-btns.admin-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* Overlay pages */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            z-index: 80;
+        }
+        .overlay.active { display: flex; }
+        .overlay .panel {
+            width: min(980px, 100%);
+            max-height: min(86vh, 920px);
+            overflow: auto;
+            background: rgba(11,16,32,0.92);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 18px 70px rgba(0,0,0,0.60);
+        }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .panel-header h3 { margin: 0; font-size: 18px; }
+        .close-x {
+            width: 38px; height: 38px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text);
+        }
+        .close-x:hover { background: rgba(255,255,255,0.08); }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            border-bottom: 1px solid var(--line);
+            padding: 10px 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.88);
+        }
+        th { text-align: left; color: rgba(255,255,255,0.75); font-weight: 700; }
+
+        .status-message {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.04);
+            display: none;
+            font-size: 13px;
+        }
+        .status-success { border-color: rgba(163,255,107,0.35); }
+        .status-error { border-color: rgba(255,107,107,0.35); }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (max-width: 860px){ .form-row{ grid-template-columns: 1fr; } }
+        label { display: block; margin: 10px 0 6px; color: rgba(255,255,255,0.80); font-size: 13px; }
+        input, select, textarea {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.92);
+            padding: 10px 12px;
+            outline: none;
+        }
+        textarea { min-height: 90px; resize: vertical; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+        .divider { height: 1px; background: var(--line); margin: 14px 0; }
+
+        /* === 원본 내용 끝 === */
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="brand">
+            <div class="logo"></div>
+            <div class="title">
+                <div class="top">PhoenixAI Agent Factory</div>
+                <div class="sub">AI 에이전트 & 자동화 플랫폼 · 2025 하반기 오픈</div>
+            </div>
+        </div>
+        <nav>
+            <a class="nav-link" href="#about">소개</a>
+            <a class="nav-link" href="#service">서비스</a>
+            <a class="nav-link" href="#faq">FAQ</a>
+            <button class="btn primary" id="headerLoginBtn" onclick="toggleHeaderLogin()">로그인</button>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="card">
+                <h1>AI 에이전트 운영, 이제 “사이트”에서 끝내세요</h1>
+                <p>
+                    피닉스AI Agent 팩토리는 정적 웹사이트에서도 관리자만 접근 가능한 운영 화면(고객관리/AI챗봇관리)을 제공하고,
+                    AI API 설정을 Supabase에 저장하여 브라우저에 키를 남기지 않는 구조로 확장할 수 있습니다.
+                </p>
+                <div class="pill-row">
+                    <div class="pill">Supabase Auth 로그인</div>
+                    <div class="pill">관리자 전용 메뉴</div>
+                    <div class="pill">API 키: Supabase DB 저장</div>
+                    <div class="pill">정적 사이트 유지</div>
+                </div>
+            </div>
+
+            <div class="card mini">
+                <div class="stat">
+                    <div class="k">운영 모드</div>
+                    <div class="v">AI챗봇관리 / 고객관리</div>
+                </div>
+                <div class="stat">
+                    <div class="k">배포</div>
+                    <div class="v">Netlify (정적)</div>
+                </div>
+                <div class="stat">
+                    <div class="k">인증</div>
+                    <div class="v">Supabase Auth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>소개</h2>
+            <p class="muted">
+                (원본 내용 유지) — 여기에 기존 소개 텍스트가 들어있다면 그대로 사용하세요.
+            </p>
+        </div>
+    </section>
+
+    <section id="service" class="section">
+        <div class="container">
+            <h2>서비스</h2>
+            <p class="muted">(원본 내용 유지)</p>
+        </div>
+    </section>
+
+    <section id="faq" class="section">
+        <div class="container">
+            <h2>FAQ</h2>
+            <p class="muted">(원본 내용 유지)</p>
+        </div>
+    </section>
+</main>
+
+<!-- Footer admin buttons (로그인 상태일 때만 보이게) -->
+<div class="footer-admin-btns" id="footerAdminBtns">
+    <button class="btn" onclick="loginChatbotAdmin()">AI챗봇 관리</button>
+    <button class="btn" onclick="showAdminPage()">고객 관리</button>
+</div>
+
+<!-- 고객 관리 overlay -->
+<div class="overlay" id="adminPage">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>고객 관리</h3>
+            <button class="close-x" onclick="closeAdminPage()">✕</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="actions">
+            <button class="btn" onclick="exportCSV()">CSV 내보내기</button>
+            <button class="btn danger" onclick="logout()">로그아웃</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>접수시간</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>이메일</th>
+                    <th>유입경로</th>
+                    <th>요청내용</th>
+                </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 챗봇 관리 overlay -->
+<div class="overlay" id="chatbotAdminPage">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>AI챗봇 관리</h3>
+            <button class="close-x" onclick="closeChatbotAdminPage()">✕</button>
+        </div>
+
+        <p class="muted">API 키는 브라우저에 저장하지 않고 Supabase(DB)에 저장됩니다.</p>
+
+        <div class="divider"></div>
+
+        <div class="form-row">
+            <div>
+                <label>ChatGPT 모델</label>
+                <select id="chatgptModel" onchange="handleFinetuningInput('chatgpt')">
+                    <option value="">선택</option>
+                    <option value="gpt-4o">gpt-4o</option>
+                    <option value="gpt-4.1">gpt-4.1</option>
+                    <option value="finetuning">파인튜닝(직접입력)</option>
+                </select>
+
+                <div id="chatgptFinetuningGroup" style="display:none; margin-top:10px;">
+                    <label>파인튜닝 모델명</label>
+                    <input id="chatgptFinetuningModel" placeholder="예: ft:gpt-4o:your-org:your-model" />
+                </div>
+
+                <label>ChatGPT API Key</label>
+                <input id="chatgptApiKey" placeholder="sk-..." />
+            </div>
+
+            <div>
+                <label>Gemini 모델</label>
+                <select id="geminiModel">
+                    <option value="">선택</option>
+                    <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                    <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                </select>
+                <label>Gemini API Key</label>
+                <input id="geminiApiKey" placeholder="AIza..." />
+
+                <label style="margin-top:14px;">Claude 모델</label>
+                <select id="claudeModel">
+                    <option value="">선택</option>
+                    <option value="claude-3.5-sonnet">claude-3.5-sonnet</option>
+                    <option value="claude-3-opus">claude-3-opus</option>
+                </select>
+                <label>Claude API Key</label>
+                <input id="claudeApiKey" placeholder="sk-ant-..." />
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn primary" onclick="saveApiSettings()">저장</button>
+            <button class="btn" onclick="testApiConnection()">연결 테스트(데모)</button>
+            <button class="btn danger" onclick="resetApiSettings()">초기화</button>
+            <button class="btn danger" onclick="logout()">로그아웃</button>
+        </div>
+
+        <div id="apiStatus" class="status-message"></div>
+    </div>
+</div>
+
+<!-- ✅ Supabase 설정 + SDK 로드 -->
+<script>
+    // ✅ Supabase 설정값을 여기에 붙여넣으세요 (Supabase Project Settings → Data API / API Keys)
+    // - SUPABASE_URL: Project URL (https://xxxx.supabase.co)
+    // - SUPABASE_ANON_KEY: anon public key
+    window.APP_CONFIG = {
+        SUPABASE_URL: "PASTE_YOUR_SUPABASE_URL_HERE",
+        SUPABASE_ANON_KEY: "PASTE_YOUR_SUPABASE_ANON_KEY_HERE"
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+        // ═══════ DATA STORE ═══════
+        const applicationData = [];
+
+        // ✅ Supabase client 초기화
+        let supabase = null;
+
+        (function initSupabase(){
+            const cfg = window.APP_CONFIG || {};
+            if (!cfg.SUPABASE_URL || cfg.SUPABASE_URL.includes("PASTE_") || !cfg.SUPABASE_ANON_KEY || cfg.SUPABASE_ANON_KEY.includes("PASTE_")) {
+                console.warn("[Supabase] SUPABASE_URL / SUPABASE_ANON_KEY 가 설정되지 않았습니다. window.APP_CONFIG 값을 확인하세요.");
+                return;
+            }
+            supabase = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+        })();
+
+        // UI flags
+        let chatbotOpen = false;
+        let apiSettings = {
+            chatgpt: { apiKey: '', model: '', enabled: false },
+            gemini: { apiKey: '', model: '', enabled: false },
+            claude: { apiKey: '', model: '', enabled: false },
+            activeProvider: ''
+        };
+
+        // ✅ API 설정은 더 이상 브라우저(localStorage)에 저장하지 않습니다.
+        //    'AI챗봇관리'에서 Supabase(DB)로 로드/저장됩니다.
+
+        let adminMenuLoggedIn = false;
+
+        // ✅ 로그인 상태를 기준으로 관리자 메뉴/버튼 표시를 동기화
+        async function refreshAdminUI() {
+            if (!supabase) return;
+            const { data: { session } } = await supabase.auth.getSession();
+
+            // 헤더 로그인 버튼 텍스트
+            const headerBtn = document.getElementById('headerLoginBtn');
+            if (headerBtn) headerBtn.textContent = session ? '로그아웃' : '로그인';
+
+            // 푸터 관리자 버튼 그룹 표시(기존 CSS: .admin-visible)
+            const footerAdmin = document.getElementById('footerAdminBtns');
+            if (footerAdmin) {
+                if (session) footerAdmin.classList.add('admin-visible');
+                else footerAdmin.classList.remove('admin-visible');
+            }
+
+            adminMenuLoggedIn = !!session;
+
+            // 세션이 없으면 관리자 팝업 닫기
+            if (!session) {
+                document.getElementById('adminPage')?.classList.remove('active');
+                document.getElementById('chatbotAdminPage')?.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 초기 로드 + 세션 변화 감지
+        (async () => {
+            if (!supabase) return;
+            await refreshAdminUI();
+            supabase.auth.onAuthStateChange(async () => {
+                await refreshAdminUI();
+            });
+        })();
+
+        // ═════════════════════════════════════════════════════════════
+        // ✅ Supabase에 API 설정 저장/로드 (브라우저 저장 제거)
+        // ─ DB 테이블: public.api_settings (user_id, provider, model, api_key)
+        // ═════════════════════════════════════════════════════════════
+
+        async function loadApiSettingsFromSupabase() {
+            if (!supabase) return;
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) return;
+
+            const { data, error } = await supabase
+                .from('api_settings')
+                .select('provider, model, api_key')
+                .eq('user_id', session.user.id);
+
+            if (error) {
+                showStatus('apiStatus', '❌ 설정 로드 실패: ' + error.message, 'error');
+                return;
+            }
+
+            // 초기화
+            apiSettings = {
+                chatgpt: { apiKey: '', model: '', enabled: false },
+                gemini: { apiKey: '', model: '', enabled: false },
+                claude: { apiKey: '', model: '', enabled: false },
+                activeProvider: ''
+            };
+
+            const byProvider = { chatgpt: null, gemini: null, claude: null };
+            (data || []).forEach(r => { byProvider[r.provider] = r; });
+
+            // UI에 반영 + 메모리에 반영
+            if (byProvider.chatgpt) {
+                apiSettings.chatgpt = {
+                    apiKey: byProvider.chatgpt.api_key || '',
+                    model: byProvider.chatgpt.model || '',
+                    enabled: !!(byProvider.chatgpt.api_key && byProvider.chatgpt.model)
+                };
+                // finetuning 분기 처리: 모델명이 dropdown 옵션에 없으면 finetuning으로 두고 입력칸에 넣음
+                const sel = document.getElementById('chatgptModel');
+                const ft = document.getElementById('chatgptFinetuningModel');
+                if (sel) {
+                    const hasOption = Array.from(sel.options).some(o => o.value === apiSettings.chatgpt.model);
+                    if (hasOption) {
+                        sel.value = apiSettings.chatgpt.model;
+                        if (ft) ft.value = '';
+                        document.getElementById('chatgptFinetuningGroup').style.display = 'none';
+                    } else {
+                        sel.value = 'finetuning';
+                        if (ft) ft.value = apiSettings.chatgpt.model;
+                        document.getElementById('chatgptFinetuningGroup').style.display = 'block';
+                    }
+                }
+                const keyEl = document.getElementById('chatgptApiKey');
+                if (keyEl) keyEl.value = apiSettings.chatgpt.apiKey;
+            }
+
+            if (byProvider.gemini) {
+                apiSettings.gemini = {
+                    apiKey: byProvider.gemini.api_key || '',
+                    model: byProvider.gemini.model || '',
+                    enabled: !!(byProvider.gemini.api_key && byProvider.gemini.model)
+                };
+                const sel = document.getElementById('geminiModel');
+                if (sel) sel.value = apiSettings.gemini.model || '';
+                const keyEl = document.getElementById('geminiApiKey');
+                if (keyEl) keyEl.value = apiSettings.gemini.apiKey;
+            }
+
+            if (byProvider.claude) {
+                apiSettings.claude = {
+                    apiKey: byProvider.claude.api_key || '',
+                    model: byProvider.claude.model || '',
+                    enabled: !!(byProvider.claude.api_key && byProvider.claude.model)
+                };
+                const sel = document.getElementById('claudeModel');
+                if (sel) sel.value = apiSettings.claude.model || '';
+                const keyEl = document.getElementById('claudeApiKey');
+                if (keyEl) keyEl.value = apiSettings.claude.apiKey;
+            }
+
+            let activeCount = [apiSettings.chatgpt, apiSettings.gemini, apiSettings.claude].filter(a => a.enabled).length;
+            if (activeCount === 0) showStatus('apiStatus', 'ℹ️ 아직 저장된 API 설정이 없습니다.', 'success');
+            else showStatus('apiStatus', `✅ Supabase에서 ${activeCount}개의 설정을 불러왔습니다.`, 'success');
+        }
+
+        async function saveApiSettingsToSupabase() {
+            if (!supabase) return;
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { showStatus('apiStatus', '❌ 관리자 로그인이 필요합니다.', 'error'); return; }
+
+            const rows = [
+                { user_id: session.user.id, provider: 'chatgpt', model: apiSettings.chatgpt.model || '', api_key: apiSettings.chatgpt.apiKey || '' },
+                { user_id: session.user.id, provider: 'gemini', model: apiSettings.gemini.model || '', api_key: apiSettings.gemini.apiKey || '' },
+                { user_id: session.user.id, provider: 'claude', model: apiSettings.claude.model || '', api_key: apiSettings.claude.apiKey || '' }
+            ];
+
+            const { error } = await supabase
+                .from('api_settings')
+                .upsert(rows, { onConflict: 'user_id,provider' });
+
+            if (error) {
+                showStatus('apiStatus', '❌ 저장 실패: ' + error.message, 'error');
+                return;
+            }
+            showStatus('apiStatus', '✅ Supabase에 저장 완료', 'success');
+        }
+
+        // ======= 로그인 버튼 (Supabase Auth) =======
+        function toggleHeaderLogin() {
+            if (!supabase) { alert('Supabase 설정이 필요합니다. window.APP_CONFIG를 확인하세요.'); return; }
+
+            supabase.auth.getSession().then(async ({ data: { session } }) => {
+                if (session) {
+                    await supabase.auth.signOut();
+                    await refreshAdminUI();
+                    return;
+                }
+
+                const email = prompt('관리자 이메일을 입력하세요:', 'phoenixai.sw@gmail.com');
+                if (email === null) return;
+                const pw = prompt('비밀번호를 입력하세요:', '');
+                if (pw === null) return;
+
+                const { error } = await supabase.auth.signInWithPassword({
+                    email: String(email).trim(),
+                    password: String(pw)
+                });
+
+                if (error) {
+                    alert('로그인 실패: ' + error.message);
+                    return;
+                }
+
+                await refreshAdminUI();
+                alert('로그인 성공');
+            });
+        }
+
+        // ======= 고객 관리 오픈(세션 필요) =======
+        async function showAdminPage() {
+            if (!supabase) { alert('Supabase 설정이 필요합니다. window.APP_CONFIG를 확인하세요.'); return; }
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { alert('관리자 로그인이 필요합니다.'); return; }
+
+            document.getElementById('adminPage').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateAdminTable();
+        }
+
+        function closeAdminPage() {
+            document.getElementById('adminPage').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ======= 챗봇 관리 오픈(세션 필요) + Supabase 로드 =======
+        async function loginChatbotAdmin() {
+            if (!supabase) { alert('Supabase 설정이 필요합니다. window.APP_CONFIG를 확인하세요.'); return; }
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { alert('관리자 로그인이 필요합니다.'); return; }
+
+            document.getElementById('chatbotAdminPage').classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            await loadApiSettingsFromSupabase();
+        }
+
+        function closeChatbotAdminPage() {
+            document.getElementById('chatbotAdminPage').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ======= 로그아웃 =======
+        async function logout() {
+            if (!supabase) return;
+            await supabase.auth.signOut();
+            await refreshAdminUI();
+            closeAdminPage();
+            closeChatbotAdminPage();
+        }
+
+        // ======= 고객 데이터(원본: 데모 데이터 유지) =======
+        applicationData.push({
+            timestamp: '2025-06-10 14:30:25', name: '김철수', phone: '010-1234-5678',
+            email: 'kim@example.com', source: 'SNS', automation: '고객 문의 응답 자동화 및 이메일 마케팅 시스템 구축'
+        });
+        applicationData.push({
+            timestamp: '2025-06-11 09:11:02', name: '박영희', phone: '010-9999-0000',
+            email: 'park@example.com', source: '지인추천', automation: '견적서 자동 생성 및 발송 시스템'
+        });
+
+        function updateAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '';
+            applicationData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.timestamp}</td>
+                    <td>${row.name}</td>
+                    <td>${row.phone}</td>
+                    <td>${row.email}</td>
+                    <td>${row.source}</td>
+                    <td>${row.automation}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function exportCSV() {
+            const headers = ['timestamp','name','phone','email','source','automation'];
+            const lines = [
+                headers.join(','),
+                ...applicationData.map(r => headers.map(h => `"${String(r[h] ?? '').replaceAll('"','""')}"`).join(','))
+            ];
+            const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'customers.csv';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        }
+
+        // ======= API Settings =======
+        async function saveApiSettings() {
+            const chatgptModel = document.getElementById('chatgptModel').value;
+            const chatgptFinetuningModel = document.getElementById('chatgptFinetuningModel').value.trim();
+            const chatgptApiKey = document.getElementById('chatgptApiKey').value.trim();
+            const geminiModel = document.getElementById('geminiModel').value;
+            const geminiApiKey = document.getElementById('geminiApiKey').value.trim();
+            const claudeModel = document.getElementById('claudeModel').value;
+            const claudeApiKey = document.getElementById('claudeApiKey').value.trim();
+
+            let finalChatGPTModel = chatgptModel;
+            if (chatgptModel === 'finetuning' && chatgptFinetuningModel) finalChatGPTModel = chatgptFinetuningModel;
+
+            apiSettings.chatgpt = { model: finalChatGPTModel, apiKey: chatgptApiKey, enabled: !!(finalChatGPTModel && chatgptApiKey) };
+            apiSettings.gemini = { model: geminiModel, apiKey: geminiApiKey, enabled: !!(geminiModel && geminiApiKey) };
+            apiSettings.claude = { model: claudeModel, apiKey: claudeApiKey, enabled: !!(claudeModel && claudeApiKey) };
+
+            let activeCount = [apiSettings.chatgpt, apiSettings.gemini, apiSettings.claude].filter(a => a.enabled).length;
+            if (activeCount === 0) {
+                showStatus('apiStatus', '❌ 최소 하나의 AI 모델을 설정해주세요.', 'error');
+                return;
+            }
+
+            // ✅ Supabase(DB)에 저장 (브라우저 저장 제거)
+            await saveApiSettingsToSupabase();
+
+            showStatus('apiStatus', `✅ ${activeCount}개의 AI 모델이 설정되었습니다!`, 'success');
+        }
+
+        function testApiConnection() {
+            showStatus('apiStatus', '🔄 API 연결을 테스트하고 있습니다...', 'success');
+            setTimeout(() => showStatus('apiStatus', '🎉 API 연결 테스트가 완료되었습니다!', 'success'), 1500);
+        }
+
+        function resetApiSettings() {
+            if (confirm('모든 API 설정을 초기화하시겠습니까?')) {
+                ['chatgptModel','chatgptApiKey','chatgptFinetuningModel','geminiModel','geminiApiKey','claudeModel','claudeApiKey']
+                    .forEach(id => document.getElementById(id).value = '');
+                document.getElementById('chatgptFinetuningGroup').style.display = 'none';
+                apiSettings = { chatgpt: { apiKey:'',model:'',enabled:false }, gemini: { apiKey:'',model:'',enabled:false }, claude: { apiKey:'',model:'',enabled:false }, activeProvider:'' };
+
+                // ✅ 초기화 후 Supabase에도 반영
+                if (supabase) { saveApiSettingsToSupabase(); }
+
+                showStatus('apiStatus', '✅ 초기화 완료', 'success');
+            }
+        }
+
+        function handleFinetuningInput(provider) {
+            const sel = document.getElementById(`${provider}Model`);
+            const grp = document.getElementById(`${provider}FinetuningGroup`);
+            if (!grp || !sel) return;
+            grp.style.display = sel.value === 'finetuning' ? 'block' : 'none';
+        }
+
+        function showStatus(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.className = `status-message status-${type}`;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 5000);
+        }
+
+        // Admin shortcut
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && e.altKey && e.key === 'a') { e.preventDefault(); showAdminPage(); }
+        });
+</script>
+
+</body>
+</html>

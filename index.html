@@ -2617,6 +2617,15 @@
             claude: { apiKey: '', model: '', enabled: false },
             activeProvider: ''
         };
+        try {
+            var saved = localStorage.getItem('chatbotApiSettings');
+            if (saved) {
+                var parsed = JSON.parse(saved);
+                if (parsed.chatgpt) apiSettings.chatgpt = parsed.chatgpt;
+                if (parsed.gemini) apiSettings.gemini = parsed.gemini;
+                if (parsed.claude) apiSettings.claude = parsed.claude;
+            }
+        } catch (e) {}
 
         // Demo data
         applicationData.push({
@@ -2736,10 +2745,68 @@
             addMessage(msg, 'user');
             input.value = '';
 
-            setTimeout(() => {
-                const response = getChatbotResponse(msg);
-                addMessage(response, 'bot');
-            }, 600);
+            var chat = apiSettings.chatgpt?.enabled && (apiSettings.chatgpt?.apiKey || '').trim()
+                ? apiSettings.chatgpt : null;
+
+            if (chat) {
+                addTyping();
+                callChatApi(msg, chat).then(function(response) {
+                    removeTyping();
+                    addMessage(response || getChatbotResponse(msg), 'bot');
+                }).catch(function() {
+                    removeTyping();
+                    addMessage(getChatbotResponse(msg), 'bot');
+                });
+            } else {
+                setTimeout(function() {
+                    addMessage(getChatbotResponse(msg), 'bot');
+                }, 600);
+            }
+        }
+
+        function addTyping() {
+            const area = document.getElementById('chatbotMessages');
+            area.innerHTML += '<div class="msg bot" id="chatbotTyping"><div class="msg-avatar">🤖</div><div class="msg-body">입력 중...</div></div>';
+            area.scrollTop = area.scrollHeight;
+        }
+        function removeTyping() {
+            const el = document.getElementById('chatbotTyping');
+            if (el) el.remove();
+        }
+
+        function callChatApi(userMessage, settings) {
+            var model = (settings.model || 'gpt-4o').trim();
+            var apiKey = (settings.apiKey || '').trim();
+            if (!apiKey) return Promise.reject(new Error('No API key'));
+
+            var systemPrompt = '당신은 피닉스AI 랜딩 페이지의 친절한 상담원입니다.\n\n'
+                + '코스 안내: 챌린지 Course 1,090,000원(29% 할인), 해커톤 Course 550,000원(44% 할인), 협력사 패키지 12,000,000원. 개별 VOD 99,000~299,000원.\n'
+                + '신청: 페이지 상단 "OT 참가 신청하기" 버튼으로 가능.\n'
+                + 'OT 일정: Day1 2025년 8월 25일(월) 오후 8시, Day2 8월 26일(화) 오후 8시. 온라인 진행.\n'
+                + '연락처: 010-2965-7510.\n'
+                + '답변은 친절하고 간결하게, 필요시 HTML <br>, <b> 사용 가능.';
+
+            var messages = [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userMessage }
+            ];
+
+            return fetch('/.netlify/functions/ask-ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    apiKey: apiKey,
+                    model: model || 'gpt-4o',
+                    messages: messages,
+                    max_tokens: 800,
+                    temperature: 0.7
+                })
+            }).then(function(res) { return res.json(); }).then(function(data) {
+                if (data.error) throw new Error(data.error);
+                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content)
+                    return data.choices[0].message.content;
+                throw new Error('Invalid response');
+            });
         }
 
         function addMessage(text, type) {
@@ -2803,6 +2870,7 @@
             apiSettings.chatgpt = { model: finalChatGPTModel, apiKey: chatgptApiKey, enabled: !!(finalChatGPTModel && chatgptApiKey) };
             apiSettings.gemini = { model: geminiModel, apiKey: geminiApiKey, enabled: !!(geminiModel && geminiApiKey) };
             apiSettings.claude = { model: claudeModel, apiKey: claudeApiKey, enabled: !!(claudeModel && claudeApiKey) };
+            try { localStorage.setItem('chatbotApiSettings', JSON.stringify(apiSettings)); } catch (e) {}
 
             let activeCount = [apiSettings.chatgpt, apiSettings.gemini, apiSettings.claude].filter(a => a.enabled).length;
             if (activeCount === 0) {
@@ -2823,6 +2891,7 @@
                     .forEach(id => document.getElementById(id).value = '');
                 document.getElementById('chatgptFinetuningGroup').style.display = 'none';
                 apiSettings = { chatgpt: { apiKey:'',model:'',enabled:false }, gemini: { apiKey:'',model:'',enabled:false }, claude: { apiKey:'',model:'',enabled:false }, activeProvider:'' };
+                try { localStorage.setItem('chatbotApiSettings', JSON.stringify(apiSettings)); } catch (e) {}
                 showStatus('apiStatus', '🔄 모든 API 설정이 초기화되었습니다.', 'success');
             }
         }

@@ -2645,14 +2645,15 @@
         }
 
         function showAdminPage() {
+            const id = prompt('관리자 아이디를 입력해주세요:');
             const pw = prompt('관리자 비밀번호를 입력해주세요:');
-            if (pw === 'phoenix2025') {
+            if (id === '005060' && pw === '005060') {
                 isLoggedIn = true;
                 document.getElementById('adminPage').classList.add('active');
                 document.body.style.overflow = 'hidden';
                 updateAdminTable();
-            } else if (pw !== null) {
-                alert('비밀번호가 올바르지 않습니다.');
+            } else if (id !== null && pw !== null) {
+                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
             }
         }
 
@@ -2663,12 +2664,13 @@
         }
 
         function loginChatbotAdmin() {
+            const id = prompt('AI 챗봇 관리자 아이디를 입력해주세요:');
             const pw = prompt('AI 챗봇 관리자 비밀번호를 입력해주세요:');
-            if (pw === 'phoenix2025') {
+            if (id === '005060' && pw === '005060') {
                 document.getElementById('chatbotAdminPage').classList.add('active');
                 document.body.style.overflow = 'hidden';
-            } else if (pw !== null) {
-                alert('비밀번호가 올바르지 않습니다.');
+            } else if (id !== null && pw !== null) {
+                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
             }
         }
 

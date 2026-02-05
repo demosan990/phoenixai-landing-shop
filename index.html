@@ -1293,10 +1293,13 @@
 
         .chatbot-window {
             position: fixed;
-            bottom: 104px;
+            top: 80px;
             right: 32px;
+            bottom: 104px;
             width: 494px;
-            height: 676px;
+            height: auto;
+            max-height: calc(100vh - 80px - 104px);
+            min-height: 400px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
@@ -1784,11 +1787,15 @@
             .project-top { flex-direction: column; align-items: flex-start; }
 
             .chatbot-window {
+                top: 72px;
                 right: 12px;
                 bottom: 104px;
-                width: calc(100vw - 24px);
-                max-width: 494px;
-                height: 676px;
+                left: 12px;
+                width: auto;
+                max-width: none;
+                height: auto;
+                max-height: calc(100vh - 72px - 104px);
+                min-height: 360px;
             }
 
             .fixed-cta {

@@ -1391,6 +1391,31 @@
             border-bottom-right-radius: 4px;
         }
 
+        .msg-content { display: flex; flex-direction: column; gap: 6px; max-width: 72%; }
+        .msg-actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        .msg-copy-btn, .msg-delete-btn {
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.2s;
+        }
+        .msg-copy-btn:hover, .msg-delete-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--gold);
+            background: var(--gold-dim);
+        }
+        .msg-delete-btn { color: #c75; }
+        .msg-delete-btn:hover { border-color: #c75; background: rgba(200,100,80,0.1); }
+
         .quick-btns {
             display: flex;
             flex-wrap: wrap;
@@ -2790,11 +2815,17 @@
             if (!apiKey) return Promise.reject(new Error('API 키를 입력해주세요.'));
 
             var systemPrompt = '당신은 피닉스AI 랜딩 페이지의 친절한 상담원입니다.\n\n'
-                + '코스 안내: 챌린지 Course 1,090,000원(29% 할인), 해커톤 Course 550,000원(44% 할인), 협력사 패키지 12,000,000원. 개별 VOD 99,000~299,000원.\n'
-                + '신청: 페이지 상단 "OT 참가 신청하기" 버튼으로 가능.\n'
-                + 'OT 일정: Day1 2025년 8월 25일(월) 오후 8시, Day2 8월 26일(화) 오후 8시. 온라인 진행.\n'
-                + '연락처: 010-2965-7510.\n'
-                + '답변은 친절하고 간결하게, 필요시 HTML <br>, <b> 사용 가능.';
+                + '【참고 정보】\n'
+                + '• 코스: 챌린지 Course 1,090,000원(29% 할인), 해커톤 550,000원(44% 할인), 협력사 패키지 12,000,000원, 개별 VOD 99,000~299,000원\n'
+                + '• 신청: 페이지 상단 "OT 참가 신청하기" 버튼\n'
+                + '• OT 일정: Day1 2025년 8월 25일(월) 오후 8시, Day2 8월 26일(화) 오후 8시 (온라인)\n'
+                + '• 연락처: 010-2965-7510\n\n'
+                + '【답변 형식 규칙 – 반드시 지킬 것】\n'
+                + '1. 문단 구분: 내용이 길면 반드시 <br><br>로 문단을 나누고, 섹션마다 빈 줄로 구분한다.\n'
+                + '2. 이모티콘: 제목·항목 앞에 적절한 이모티콘을 쓴다. 예: 📌 안내, 💡 Tip, 📋 목록, ✅ 확인, 📞 문의, 💰 가격, 📅 일정, 🎯 요약\n'
+                + '3. 번호/기호: 여러 항목은 1. 2. 3. 또는 • 로 구분해 읽기 쉽게 정리한다.\n'
+                + '4. 괄호 활용: 【제목】또는 [소제목] 형태로 구역을 구분하고, 강조는 (괄호)로 보조한다.\n'
+                + '5. HTML: <b>굵게</b>, <br> 줄바꿈만 사용. 친절하고 보기 좋게 답변한다.';
 
             var messages = [
                 { role: 'system', content: systemPrompt },
@@ -2831,8 +2862,37 @@
         function addMessage(text, type) {
             const area = document.getElementById('chatbotMessages');
             const avatar = type === 'bot' ? '🤖' : '👤';
-            area.innerHTML += `<div class="msg ${type}"><div class="msg-avatar">${avatar}</div><div class="msg-body">${text}</div></div>`;
+            if (type === 'bot') {
+                var wrap = document.createElement('div');
+                wrap.className = 'msg bot';
+                wrap.innerHTML = '<div class="msg-avatar">' + avatar + '</div>';
+                var content = document.createElement('div');
+                content.className = 'msg-content';
+                content.innerHTML = '<div class="msg-body">' + text + '</div>'
+                    + '<div class="msg-actions"><button type="button" class="msg-copy-btn">📋 복사</button><button type="button" class="msg-delete-btn">🗑 삭제</button></div>';
+                wrap.appendChild(content);
+                area.appendChild(wrap);
+                var bodyEl = content.querySelector('.msg-body');
+                content.querySelector('.msg-copy-btn').onclick = function() {
+                    var plain = (bodyEl.innerText || bodyEl.textContent || '').trim();
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(plain).then(function() { alert('답변이 복사되었습니다.'); }).catch(function() { copyFallback(plain); });
+                    } else { copyFallback(plain); }
+                };
+                content.querySelector('.msg-delete-btn').onclick = function() { wrap.remove(); };
+            } else {
+                area.innerHTML += '<div class="msg user"><div class="msg-avatar">' + avatar + '</div><div class="msg-body">' + text + '</div></div>';
+            }
             area.scrollTop = area.scrollHeight;
+        }
+        function copyFallback(str) {
+            var ta = document.createElement('textarea');
+            ta.value = str;
+            ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); alert('답변이 복사되었습니다.'); } catch (e) { alert('복사에 실패했습니다.'); }
+            document.body.removeChild(ta);
         }
 
         function getChatbotResponse(msg) {

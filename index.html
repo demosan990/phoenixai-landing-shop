@@ -153,6 +153,22 @@
             cursor: pointer;
         }
 
+        .header-login-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 8px;
+        }
+        .header-login-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
         .header-cta:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(201, 168, 76, 0.35);
@@ -1241,6 +1257,8 @@
 
         .footer-links a:hover { color: var(--gold); }
 
+        #footerAdminBtns { display: none; }
+        #footerAdminBtns.admin-visible { display: flex; }
         .footer-admin-btns {
             display: flex;
             gap: 12px;
@@ -1832,6 +1850,7 @@
                 <a href="#solutions">솔루션</a>
                 <a href="#features">차별점</a>
                 <a href="#" class="header-cta" onclick="showApplicationForm()">OT 신청하기</a>
+                <button type="button" id="headerLoginBtn" class="header-login-btn" onclick="toggleHeaderLogin()">로그인</button>
             </nav>
             <button class="mobile-toggle" onclick="document.querySelector('.header-nav').classList.toggle('mobile-open')">☰</button>
         </div>
@@ -2427,7 +2446,7 @@
                         <div class="logo-text">Phoenix<span>AI</span></div>
                     </a>
                     <p>2015년부터 현재까지 10년의 노하우의 집합체 'Agent 팩토리'. AI 자동화 기술로 비즈니스의 새로운 가능성을 열어갑니다.</p>
-                    <div class="footer-admin-btns">
+                    <div id="footerAdminBtns" class="footer-admin-btns">
                         <button class="footer-admin-btn" onclick="loginChatbotAdmin()">🤖 AI챗봇 관리</button>
                         <button class="footer-admin-btn" onclick="showAdminPage()">👥 고객 관리</button>
                     </div>
@@ -2655,6 +2674,7 @@
         // ═══════ DATA STORE ═══════
         let applicationData = [];
         let isLoggedIn = false;
+        let adminMenuLoggedIn = false;
         let chatbotOpen = false;
         let apiSettings = {
             chatgpt: { apiKey: '', model: '', enabled: false },
@@ -2681,6 +2701,29 @@
             timestamp: '2025-06-10 15:45:12', name: '이영희', phone: '010-9876-5432',
             email: 'lee@example.com', source: '지인추천', automation: 'SNS 콘텐츠 자동 게시 및 성과 분석 대시보드'
         });
+
+        // ═══════ HEADER LOGIN (관리자 메뉴 표시) ═══════
+        function toggleHeaderLogin() {
+            var btn = document.getElementById('headerLoginBtn');
+            var footerAdmin = document.getElementById('footerAdminBtns');
+            if (adminMenuLoggedIn) {
+                adminMenuLoggedIn = false;
+                if (footerAdmin) footerAdmin.classList.remove('admin-visible');
+                if (btn) btn.textContent = '로그인';
+                return;
+            }
+            var email = prompt('아이디(이메일)를 입력하세요:');
+            if (email === null) return;
+            var pw = prompt('비밀번호를 입력하세요:');
+            if (pw === null) return;
+            if (String(email).trim() === 'phoenixai.sw@gmail.com' && pw === '005060') {
+                adminMenuLoggedIn = true;
+                if (footerAdmin) footerAdmin.classList.add('admin-visible');
+                if (btn) btn.textContent = '로그아웃';
+            } else {
+                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+            }
+        }
 
         // ═══════ NAVIGATION ═══════
         function showMainPage() {

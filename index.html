@@ -1295,8 +1295,8 @@
             position: fixed;
             bottom: 104px;
             right: 32px;
-            width: 380px;
-            height: 520px;
+            width: 494px;
+            height: 676px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
@@ -1335,7 +1335,7 @@
 
         .chatbot-messages-area {
             flex: 1;
-            padding: 20px;
+            padding: 24px;
             overflow-y: auto;
             background: var(--bg-primary);
         }
@@ -1383,7 +1383,17 @@
             border: 1px solid var(--border);
             color: var(--text-primary);
             border-bottom-left-radius: 4px;
+            max-width: none;
+            padding: 20px 22px;
+            font-size: 0.9rem;
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+            word-spacing: 0.04em;
         }
+        .msg.bot .msg-body br { display: block; margin-bottom: 0.4em; }
+        .msg.bot .msg-body br + br { margin-bottom: 0.75em; }
+        .msg.bot .msg-body p { margin: 0 0 0.75em 0; }
+        .msg.bot .msg-body p:last-child { margin-bottom: 0; }
 
         .msg.user .msg-body {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -1391,7 +1401,7 @@
             border-bottom-right-radius: 4px;
         }
 
-        .msg-content { display: flex; flex-direction: column; gap: 6px; max-width: 72%; }
+        .msg-content { display: flex; flex-direction: column; gap: 8px; max-width: 92%; min-width: 0; }
         .msg-actions {
             display: flex;
             gap: 6px;
@@ -1777,7 +1787,8 @@
                 right: 12px;
                 bottom: 104px;
                 width: calc(100vw - 24px);
-                max-width: 380px;
+                max-width: 494px;
+                height: 676px;
             }
 
             .fixed-cta {
